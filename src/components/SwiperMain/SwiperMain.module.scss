@@ -1,0 +1,21 @@
+@import "./../../styles/variables";
+
+.mySwiper {
+  padding-top: 40px;
+}
+
+:global(.swiper-pagination) {
+  width: unset !important;
+}
+
+:global(.swiper-pagination-bullet-active) {
+  background: $color-white;
+  width: 30px;
+  border-radius: 30%;
+}
+
+@media screen and (max-width: 768px) {
+  :global(.swiper-pagination) {
+    width: 100% !important;
+  }
+}

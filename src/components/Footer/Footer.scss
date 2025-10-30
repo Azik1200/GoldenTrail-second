@@ -1,0 +1,224 @@
+@import "./../../styles/_variables.scss";
+
+.footerNewContactsMapWrapper {
+  position: relative;
+  height: 450px;
+}
+
+.footerNewContactsMap {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.contactsInfoWrapper {
+  transform: translateY(-50%);
+  background-color: $color-white;
+  position: absolute;
+  top: 50%;
+  padding: 18px;
+}
+
+.contactsFooterList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.contactsFooterListItem a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: inherit;
+}
+
+.contactsFooterListItemIcon {
+  width: 28px;
+  height: 28px;
+  aspect-ratio: 1/1;
+  flex-shrink: 0;
+  background-color: $color-orange;
+  border-radius: 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.contactsFooterListItemIcon.phone {
+  background-image: url('data:image/svg+xml,<svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.4635 8.9816L10.0839 9.35449C10.0839 9.35449 9.18174 10.241 6.71924 7.82124C4.25676 5.40155 5.15891 4.51507 5.15891 4.51507L5.39791 4.2802C5.98674 3.70164 6.04224 2.77275 5.52849 2.09463L4.47771 0.707477C3.84189 -0.131834 2.6133 -0.242706 1.88454 0.473388L0.57654 1.75867C0.21519 2.11374 -0.0269598 2.57402 0.00240683 3.08463C0.0775318 4.39092 0.675589 7.20153 4.01279 10.4808C7.55174 13.9582 10.8723 14.0964 12.2302 13.9713C12.6597 13.9318 13.0332 13.7156 13.3342 13.4198L14.5181 12.2566C15.3172 11.4714 15.0918 10.1252 14.0694 9.57602L12.4773 8.7207C11.806 8.36008 10.9882 8.46599 10.4635 8.9816Z" fill="white"/></svg>');
+}
+
+.contactsFooterListItemIcon.workHours {
+  background-image: url('data:image/svg+xml,<svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 15C11.6421 15 15 11.6421 15 7.50002C15 3.35787 11.6421 0 7.5 0C3.35787 0 0 3.35787 0 7.50002C0 11.6421 3.35787 15 7.5 15ZM7.5 3.67308C7.91421 3.67308 8.25 4.00887 8.25 4.42309V7.18075L10.0198 8.88248C10.3184 9.16961 10.3277 9.64433 10.0407 9.94297C9.75354 10.2415 9.27879 10.2508 8.98018 9.96371L6.98014 8.04064C6.83314 7.89928 6.75 7.70406 6.75 7.50002V4.42309C6.75 4.00887 7.08579 3.67308 7.5 3.67308Z" fill="white"/></svg>');
+}
+
+.contactsFooterListItemIcon.mail {
+  background-image: url('data:image/svg+xml,<svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.01163 0C2.8849 0 1.86603 0.281602 1.12651 0.968302C0.379967 1.66153 0 2.69096 0 4.01163V8.89535C0 10.216 0.379967 11.2455 1.12651 11.9387C1.86603 12.6254 2.8849 12.907 4.01163 12.907H10.9884C12.1151 12.907 13.134 12.6254 13.8735 11.9387C14.62 11.2455 15 10.216 15 8.89535V4.01163C15 2.69096 14.62 1.66153 13.8735 0.968302C13.134 0.281602 12.1151 0 10.9884 0H4.01163ZM12.5431 3.91556C12.7718 3.73886 12.8139 3.41025 12.6372 3.18158C12.4605 2.9529 12.1319 2.91077 11.9032 3.08747L8.03316 6.07786C7.71914 6.32058 7.28079 6.32058 6.9667 6.07786L3.0967 3.08747C2.86802 2.91077 2.53941 2.9529 2.36271 3.18158C2.18601 3.41025 2.22814 3.73886 2.45682 3.91556L6.32686 6.906C7.01784 7.43986 7.98209 7.43986 8.67307 6.906L12.5431 3.91556Z" fill="white"/></svg>');
+}
+
+.contactsFooterListItemIcon.addres {
+  background-image: url('data:image/svg+xml,<svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 0C9.31371 0 12 2.68629 12 6C12 9.31371 12 11 6 17C0 11 0 9.31371 0 6C0 2.68629 2.68629 0 6 0ZM6 4C4.89543 4 4 4.89543 4 6C4 7.10457 4.89543 8 6 8C7.10457 8 8 7.10457 8 6C8 4.89543 7.10457 4 6 4Z" fill="white"/></svg>');
+}
+
+.footerNewContactsMapMobile {
+  display: none;
+}
+
+.contactsFooterListItem div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footerNew {
+  background: $color-black;
+  color: $color-white;
+  padding-top: 64px;
+}
+
+.footerNewWrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+}
+
+.footerNewCatalogs {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  justify-content: flex-end;
+}
+
+.footerNewCatalogItem {
+  max-width: 35%;
+}
+
+.footerNewTop {
+  padding-bottom: 64px;
+}
+
+.footerNewCatalogItemName,
+.footerNewItemName {
+  font-size: 20px;
+  font-family: $font-semibold;
+  margin-bottom: 38px;
+}
+
+.footerNewItemList,
+.footerNewCatalogItemList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.footerNewItemList li a,
+.footerNewCatalogItemList li a {
+  color: inherit;
+  opacity: 0.5;
+}
+
+.footerNewItemList li a:hover,
+.footerNewCatalogItemList li a:hover {
+  opacity: 1;
+}
+
+.footerNewBottom {
+  border-top: 1px solid $color-white;
+  padding: 20px 0;
+}
+
+.footerNewBottomWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footerNewBottomLeft {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+}
+
+.footerNewBottomLink {
+  color: inherit;
+}
+
+.footerNewBottomRight {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+}
+
+.footerNewBottomLink {
+  margin: 0;
+  font-size: 12px;
+}
+
+.footerNewBottomLink span {
+  font-weight: 700;
+}
+
+@media screen and (max-width: 768px) {
+  .footerNewWrapper {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .footerNewItemList li a,
+  .footerNewCatalogItemList li a {
+    opacity: 1;
+  }
+
+  .footerNewItem {
+    width: 100%;
+  }
+
+  .footerNewItemList,
+  .footerNewCatalogItemList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footerNewCatalogs {
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+  }
+  .footerNewCatalogItemName {
+    margin-bottom: 28px;
+  }
+  .footerNewCatalogItem {
+    width: 100%;
+  }
+  .footerNewBottom {
+    padding: 20px 0 80px;
+  }
+  .footerNewBottomWrapper {
+    flex-direction: column;
+    gap: 18px;
+  }
+  .footerNewBottomLeft {
+    flex-direction: column;
+  }
+  .footerNewBottomRight {
+    flex-direction: column-reverse;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .footerNewContactsMap {
+    display: none;
+  }
+  .footerNewContactsMapMobile {
+    display: block;
+    height: inherit;
+  }
+  .contactsInfoWrapper {
+    width: 90%;
+  }
+}

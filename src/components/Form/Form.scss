@@ -1,0 +1,65 @@
+@import "./../../styles/variables";
+
+.form {
+  margin-bottom: 160px;
+}
+
+.formWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.formHeader {
+  margin-bottom: 32px;
+}
+
+.inputError {
+  color: red;
+  font-family: $font-light;
+  font-size: 12px;
+  opacity: 0;
+}
+
+.inputWrapper.error {
+  input {
+    border: 1px solid red;
+  }
+  .inputError {
+    opacity: 1;
+  }
+}
+
+.orderEasilyBtn {
+  width: 100%;
+}
+
+.agreement {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+input#agreementCheckbox {
+  width: 16px;
+}
+
+.agreementText {
+  font-size: 14px;
+  a {
+    font-family: $font-bold;
+    color: $color-black;
+    text-decoration: underline;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .formWrapper {
+    flex-direction: column;
+  }
+
+  .formRight {
+    width: 100%;
+  }
+}

@@ -1,0 +1,73 @@
+@import "./../../styles/variables";
+
+.mainSwiper {
+  //   background-image: url("./../../assets/img/SwiperMainBanner.png");
+  //   background-repeat: no-repeat;
+  //   background-size: cover;
+  margin-bottom: 41px;
+  background: #fcac36;
+}
+
+.swiperInfoWrapperOuter {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 36px 0;
+}
+
+.swiperInfoPhoto {
+  max-width: 25%;
+}
+
+.swiperInfoWrapper {
+  max-width: 50%;
+}
+
+.swiperInfoTag {
+  font-size: 12px;
+  font-family: $font-light;
+  color: $color-white;
+  padding: 6px 18px;
+  background-color: rgba($color: #ffffff, $alpha: 0.5);
+  border-radius: 16px;
+  display: inline-block;
+  margin-bottom: 23px;
+}
+
+.swiperInfoHeader {
+  font-family: $font-bold;
+  font-size: clamp(24px, 1rem + 2.8vw, 48px);
+  margin-bottom: 0.67em;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.swiperInfoDesc {
+  color: #fff;
+  margin-bottom: 32px;
+}
+
+@media screen and (max-width: 768px) {
+  .swiperInfoWrapperOuter {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .swiperInfoWrapper {
+    max-width: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .swiperInfoWrapperOuter {
+    padding: 24px 0 64px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .swiperInfoPhoto {
+    max-width: 50%;
+  }
+}

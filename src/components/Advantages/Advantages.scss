@@ -1,0 +1,33 @@
+@import "./../../styles/variables";
+
+.advantages {
+  margin-bottom: 160px;
+}
+
+.advantagesHeader {
+  margin-bottom: 32px;
+}
+
+.advantagesList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 32px;
+}
+
+.advantagesListItemSVG {
+  margin-bottom: 21px;
+}
+
+.advantagesListItemName {
+  text-transform: uppercase;
+  font-family: $font-medium;
+  font-size: 20px;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 768px) {
+  .advantagesList {
+    grid-template-columns: 1fr;
+  }
+}

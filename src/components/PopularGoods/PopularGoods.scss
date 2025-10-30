@@ -1,0 +1,14 @@
+.popularGoods {
+  margin-bottom: 160px;
+}
+
+.popularGoodsHeader {
+  margin-bottom: 32px;
+}
+
+.popularGoodsWrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}

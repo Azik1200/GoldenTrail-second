@@ -1,0 +1,48 @@
+@import "./../../styles/variables";
+
+.categories {
+  margin-bottom: 160px;
+}
+
+.categoriesHeader {
+  margin-bottom: 32px;
+}
+
+.categoriesWrapper {
+  display: grid;
+  gap: 16px;
+
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.categoriesItem {
+  height: 225px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-repeat: no-repeat;
+  background-color: $color-white;
+}
+
+.categoriesItem:nth-child(1) {
+  background-image: url("./../../assets/img/categories1.png");
+  background-position: right bottom;
+}
+
+.categoriesItem:nth-child(2) {
+  background-image: url("./../../assets/img/categories2.png");
+  background-position: right bottom;
+}
+
+.categoriesItem:nth-child(3) {
+  background-image: url("./../../assets/img/categories3.png");
+  background-position: right bottom;
+}
+
+.categoriesName {
+  text-transform: uppercase;
+  color: $color-black;
+  max-width: 70%;
+  font-size: 20px;
+}
