@@ -3,6 +3,7 @@ import logo from "./../../assets/img/Logo.svg";
 import searchResult1 from "./../../assets/img/searchResult1.png";
 import searchResult2 from "./../../assets/img/searchResult2.png";
 import "./Header.scss";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   const [activeTab, setActiveTab] = useState("chapter-1");
@@ -104,9 +105,9 @@ const Header = () => {
         <div className="headerNew">
           <div className="container">
             <div className="headerNew_wrapper">
-              <div className="headerNew_logo">
+              <NavLink to="/" className="headerNew_logo">
                 <img src={logo} alt="GoldenTrail" />
-              </div>
+              </NavLink>
               <div className="headerNew_nav">
                 <button
                   className="headerNew_nav_btn"
@@ -142,7 +143,7 @@ const Header = () => {
                     />
                   </svg>
                 </button>
-                <a href="#" className="headerNew_functions_btn">
+                <NavLink to="/favorites" className="headerNew_functions_btn">
                   <svg
                     width="21"
                     height="22"
@@ -156,8 +157,12 @@ const Header = () => {
                       strokeWidth="1.5"
                     />
                   </svg>
-                </a>
-                <a href="#" className="headerNew_functions_btn">
+                </NavLink>
+                <NavLink
+                  to="/basket"
+                  href="#"
+                  className="headerNew_functions_btn"
+                >
                   <svg
                     width="21"
                     height="22"
@@ -170,7 +175,7 @@ const Header = () => {
                       fill="white"
                     />
                   </svg>
-                </a>
+                </NavLink>
               </div>
               <div className="headerNew_right">
                 <div className="headerNew_languages">
@@ -480,7 +485,7 @@ const Header = () => {
                 />
               </svg>
             </button>
-            <a href="#" className="headerNew_functions_btn">
+            <NavLink to="/favorites" className="headerNew_functions_btn">
               <svg
                 width="21"
                 height="22"
@@ -494,8 +499,8 @@ const Header = () => {
                   strokeWidth="1.5"
                 />
               </svg>
-            </a>
-            <a href="#" className="headerNew_functions_btn">
+            </NavLink>
+            <NavLink to="/basket" className="headerNew_functions_btn">
               <svg
                 width="21"
                 height="22"
@@ -508,7 +513,7 @@ const Header = () => {
                   fill="white"
                 />
               </svg>
-            </a>
+            </NavLink>
           </div>
         </div>
       </div>

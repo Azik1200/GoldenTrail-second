@@ -1,54 +1,60 @@
+// src/components/GoodsItem/GoodsItem.jsx
 import React, { useState } from "react";
 import "./GoodsItem.scss";
-import goods1 from "./../../assets/img/goods/1.png";
+import { Link } from "react-router-dom";
 
-const GoodsItem = () => {
-  // 0 = товара в корзине нет → показываем кнопку "Добавить в корзину"
-  // >0 = показываем счетчик
+const GoodsItem = ({ product }) => {
   const [qty, setQty] = useState(0);
+
+  if (!product) {
+    console.warn("GoodsItem: проп 'product' не передан");
+    return null;
+  }
+
+  const { id, goodsTag, img, name, desc, actualPrice, oldPrice } = product;
 
   const handleAdd = () => setQty(1);
   const handlePlus = () => setQty((q) => q + 1);
-  const handleMinus = () => setQty((q) => Math.max(0, q - 1)); // не уходим ниже 0
+  const handleMinus = () => setQty((q) => Math.max(0, q - 1));
 
-  // если qty стал 0 после минуса — вернётся кнопка "Добавить в корзину"
   return (
     <div className="goodsItemWrapper">
       <div className="goodsItemTop">
-        <a href="#" className="goodsItemLink" aria-label="Открыть товар" />
+        {/* вместо <a href="#"> — Link, чтобы не перезагружать страницу */}
+        <Link
+          to={`/product/${id}`}
+          className="goodsItemLink"
+          aria-label="Открыть товар"
+        />
         <div className="goodsItemVisual">
-          <div className="goodsItemVisualTag">Popular</div>
+          {goodsTag && <div className="goodsItemVisualTag">{goodsTag}</div>}
 
           <div className="goodsItemVisualActions">
-            <button className="goodsItemVisualActionBtn" aria-label="В корзину">
-              {/* …иконка… */}
-            </button>
+            <button
+              className="goodsItemVisualActionBtn"
+              aria-label="В корзину"
+            />
             <button
               className="goodsItemVisualActionBtn"
               aria-label="В избранное"
-            >
-              {/* …иконка… */}
-            </button>
+            />
           </div>
 
           <div className="goodsItemVisualImage">
-            <img src={goods1} alt="Strell PowerSteel 35" />
+            <img src={img} alt={name} />
           </div>
         </div>
 
-        <div className="goodsItemName">Strell PowerSteel 35</div>
-        <div className="goodsItemDesc">
-          Современный котёл в металлическом корпусе
-        </div>
+        <div className="goodsItemName">{name}</div>
+        <div className="goodsItemDesc">{desc}</div>
       </div>
 
       <div className="goodsItemBottom">
         <div className="goodsItemPrice">
-          <div className="goodsItemActualPrice">3200 AZN</div>
-          <div className="goodsItemOldPrice">4800 AZN</div>
+          <div className="goodsItemActualPrice">{actualPrice}</div>
+          {oldPrice && <div className="goodsItemOldPrice">{oldPrice}</div>}
         </div>
 
-        {/* Если qty === 0 — показываем кнопку добавления */}
         {qty === 0 ? (
           <button
             type="button"
@@ -58,7 +64,6 @@ const GoodsItem = () => {
             Добавить в корзину
           </button>
         ) : (
-          // Иначе показываем счётчик
           <div className="goodsItemCounter">
             <div className="goodsItemCounterText mainBtn">В корзине</div>
             <div

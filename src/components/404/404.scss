@@ -1,0 +1,49 @@
+@import "./../../styles/variables";
+
+.Element404 {
+  padding: 170px 0 100px;
+}
+
+.Element404Wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Element404Number {
+  position: absolute;
+  left: 50%;
+  top: -50%;
+  font-family: $font-bold;
+  font-size: 256px;
+  opacity: 0.3;
+  transform: translatex(-50%) translateY(10%);
+}
+
+.Element404WrapperInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .Element404 {
+    padding: 250px 0 100px;
+  }
+  span.Element404Number {
+    font-size: 176px;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@media screen and (max-width: 450px) {
+  span.Element404Number {
+    font-size: 120px;
+    transform: translateX(-50%) translateY(20%);
+  }
+}

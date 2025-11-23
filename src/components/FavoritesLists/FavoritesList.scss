@@ -1,0 +1,167 @@
+@import "./../../styles/variables";
+
+.favoritesListSection {
+  padding-top: 184px;
+  margin-bottom: 160px;
+}
+
+.favoritesListHeader {
+  margin-bottom: 64px;
+}
+
+.favoritesList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.favoritesListItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.favoritesListItem:hover {
+  background-color: #f7f7f7;
+}
+
+.favlistLeft {
+  display: flex;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.favListImg {
+  max-width: 160px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.favListInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.favListItemTitle {
+  font-family: $font-medium;
+  text-transform: uppercase;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.favListItemPrice {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+}
+
+.favListItemActualPrice {
+  font-size: 20px;
+  font-family: $font-bold;
+}
+
+.favListItemOldPrice {
+  text-decoration: line-through;
+  color: #7f7f7f;
+}
+
+.favListItemRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 100%;
+  gap: 6px;
+}
+
+.favListItemRightTop {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.favListItemDelete {
+  cursor: pointer;
+  font-family: $font-medium;
+  text-decoration: underline;
+}
+
+.favoritesListTotalTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px;
+  margin-bottom: 12px;
+}
+
+.favoritesListTotalTop:hover {
+  background-color: #f7f7f7;
+}
+
+.favoritesListTotalMainText {
+  font-size: 36px;
+  font-family: $font-bold;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.favoritesListTotalText {
+  color: #7f7f7f;
+  margin: 0;
+}
+
+.favoritesListTotalRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.favoritesListTotalBottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.favListAddToBasket {
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 768px) {
+  .favoritesListItem {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .favListItemRight {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .favListItemRightTop {
+    flex-direction: row;
+  }
+
+  .favoritesList {
+    gap: 24px;
+  }
+  .favoritesListTotalTop {
+    padding: 0;
+    flex-direction: column;
+  }
+  .favoritesListTotalRight {
+    align-items: flex-start;
+  }
+  .favListItemRight {
+    flex-direction: column;
+  }
+  .favListItemRightTop .mainBtn {
+    padding: 6px 10px;
+  }
+}

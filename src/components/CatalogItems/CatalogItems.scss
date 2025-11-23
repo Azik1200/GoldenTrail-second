@@ -1,0 +1,178 @@
+@import "./../../styles/variables";
+
+.catalogList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 16px;
+  align-items: stretch;
+  margin-top: 50px;
+  margin-bottom: 160px;
+}
+
+.breadcrumps {
+  padding-top: 100px;
+}
+
+.filtersBtn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 36px;
+  padding: 4px;
+  p {
+    margin: 0;
+  }
+}
+
+.filtersBtn:hover {
+  background: #d9d9d9;
+}
+
+.filters {
+  position: fixed;
+  inset: 0; // full screen
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  //   position: relative; // для ::before
+  width: 100vw;
+  height: 100vh;
+  background: rgba(#000000, 0.3);
+  z-index: 999;
+}
+
+/* Белая область слева (и под панелью) */
+.filters::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 60%; // или 400px, как тебе нужно
+  background: white;
+}
+
+/* Внутренний контейнер уже внутри белой зоны */
+.filterContainer {
+  height: 100%;
+  position: relative;
+  max-width: 55%; // чтобы не выходить за белую область
+}
+
+/* Панель фильтров */
+.filtersWrapper {
+  background: transparent; // фон даёт ::before
+  height: 100%;
+  padding: 100px 20px 0 30%;
+}
+
+.filtersWrapperTop {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+}
+
+.filtersCloseBtn {
+  padding: 0;
+  cursor: pointer;
+}
+
+.filtersCloseBtn:hover {
+  background: #d9d9d9;
+}
+
+.filersItem {
+  margin-bottom: 42px;
+}
+
+.h3FiltersItemHeader {
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.filtersGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filterItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.filterCheckbox {
+  width: 16px;
+  height: 16px;
+}
+
+.range-slider .range-slider__range {
+  background: #222 !important;
+  height: 2px !important;
+}
+
+.range-slider {
+  margin-bottom: 24px;
+  height: 4px !important;
+}
+
+.range-slider .range-slider__thumb {
+  background: #222 !important;
+}
+
+/* затемнённый фон на всю страницу */
+.filtersOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  // display: flex;
+  // align-items: stretch;
+  /* изначально скрыто */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* когда открыто */
+.filtersOverlay--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* сама панель слева */
+.filtersPanel {
+  // width: 40%;
+  // max-width: 480px;
+  // background: #fff;
+  // height: 100%;
+  transform: translateX(-20px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* когда открыт оверлей — панель заезжает */
+.filtersOverlay--open .filtersPanel {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .filters::before {
+    width: 95%;
+  }
+  .filterContainer {
+    max-width: 90%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .filtersWrapper {
+    padding: 100px 40px;
+  }
+  .filterContainer {
+    max-width: 95%;
+  }
+}

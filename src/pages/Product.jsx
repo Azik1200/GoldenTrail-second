@@ -1,5 +1,15 @@
+import ProductElement from "../components/ProductElement/ProductElement";
+import YouAlsoCanLike from "../components/YouAlsoCanLike/YouAlsoCanLike";
+import Form from "../components/Form/Form";
+
 const Product = () => {
-  return <>PRODUCT NUM 1</>;
+  return (
+    <>
+      <ProductElement />
+      <YouAlsoCanLike />
+      <Form />
+    </>
+  );
 };
 
 export default Product;

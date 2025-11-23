@@ -1,15 +1,15 @@
 import Form from "./../components/Form/Form";
-import BasketList from "../components/BasketList/BasketList";
+import FavoritesList from "../components/FavoritesLists/FavoritesList";
 import YouAlsoCanLike from "../components/YouAlsoCanLike/YouAlsoCanLike";
 
-const Basket = () => {
+const Favotites = () => {
   return (
     <>
-      <BasketList />
+      <FavoritesList />
       <YouAlsoCanLike />
       <Form />
     </>
   );
 };
 
-export default Basket;
+export default Favotites;

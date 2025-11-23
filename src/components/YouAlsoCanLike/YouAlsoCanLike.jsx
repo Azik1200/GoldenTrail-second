@@ -1,13 +1,12 @@
 // src/components/PopularGoods/PopularGoods.jsx
 import GoodsItem from "../GoodsItem/GoodsItem";
-import "./PopularGoods.scss";
 import products from "../../tools/Products";
 
-const PopularGoods = () => {
+const YouAlsoCanLike = () => {
   return (
     <div className="popularGoods">
       <div className="container">
-        <h2 className="popularGoodsHeader">Популярные товары</h2>
+        <h2 className="popularGoodsHeader">Вам так же может понравиться</h2>
         <div className="popularGoodsWrapper">
           {products.map((p) => (
             <GoodsItem key={p.id} product={p} />
@@ -18,4 +17,4 @@ const PopularGoods = () => {
   );
 };
 
-export default PopularGoods;
+export default YouAlsoCanLike;
