@@ -1,3 +1,5 @@
+import { filterFerroliList } from "./ferroli";
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://goldentrail.az";
 const SLIDE_IMAGE_BASE_URL =
   import.meta.env.VITE_SLIDE_IMAGE_BASE_URL || `${API_BASE_URL}/storage`;
@@ -43,5 +45,7 @@ export const fetchSlides = async () => {
     throw new Error("Failed to fetch slides");
   }
 
-  return response.json();
+  const data = await response.json();
+
+  return filterFerroliList(data);
 };

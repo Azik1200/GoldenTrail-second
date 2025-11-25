@@ -1,3 +1,5 @@
+import { filterFerroliList } from "./ferroli";
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://goldentrail.az";
 
 import { formatProductImageUrl } from "./products";
@@ -66,7 +68,9 @@ export const fetchFavorites = async () => {
     return [];
   }
 
-  return data.map((item) => {
+  const filtered = filterFerroliList(data);
+
+  return filtered.map((item) => {
     const favoriteId =
       item.id ?? item.favorite_id ?? item.fav_id ?? item.pivot_id ?? item.product_id;
 

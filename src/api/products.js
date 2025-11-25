@@ -1,3 +1,5 @@
+import { filterFerroliList, keepFerroliObject } from "./ferroli";
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://goldentrail.az";
 const PRODUCT_IMAGE_BASE_URL =
   import.meta.env.VITE_IMAGE_BASE_URL || `${API_BASE_URL}/storage/product-images`;
@@ -63,7 +65,9 @@ export const fetchProducts = async (filters = {}) => {
     return [];
   }
 
-  return data.map((product) => ({
+  const filtered = filterFerroliList(data);
+
+  return filtered.map((product) => ({
     ...product,
     image: formatProductImageUrl(product.image),
   }));
@@ -88,6 +92,15 @@ export const fetchProductFilters = async () => {
     return null;
   }
 
+  const catalogs = Array.isArray(data.catalogs) ? data.catalogs : [];
+  const filteredCatalogs = filterFerroliList(catalogs).map((catalog) => ({
+    ...catalog,
+    categories: filterFerroliList(catalog?.categories).map((category) => ({
+      ...category,
+      children: filterFerroliList(category?.children),
+    })),
+  }));
+
   return {
     colors: Array.isArray(data.colors) ? data.colors : [],
     sizes: Array.isArray(data.sizes) ? data.sizes : [],
@@ -96,7 +109,7 @@ export const fetchProductFilters = async () => {
     max_price:
       typeof data.max_price === "number" ? data.max_price : Number(data.max_price) || 0,
     brands: Array.isArray(data.brands) ? data.brands : [],
-    catalogs: Array.isArray(data.catalogs) ? data.catalogs : [],
+    catalogs: filteredCatalogs,
   };
 };
 
@@ -116,16 +129,17 @@ export const fetchProduct = async (id) => {
   }
 
   const data = await response.json();
+  const ferroliProduct = keepFerroliObject(data);
 
-  if (!data) return null;
+  if (!ferroliProduct) return null;
 
-  const formattedImages = (data.images || []).map((img) =>
+  const formattedImages = (ferroliProduct.images || []).map((img) =>
     formatProductImageUrl(img.url || img.image || img.path || img)
   );
 
   return {
-    ...data,
-    image: formatProductImageUrl(data.image),
+    ...ferroliProduct,
+    image: formatProductImageUrl(ferroliProduct.image),
     images: formattedImages,
   };
 };

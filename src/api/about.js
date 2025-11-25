@@ -1,3 +1,5 @@
+import { keepFerroliObject } from "./ferroli";
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://goldentrail.az";
 const ABOUT_IMAGE_BASE_URL =
   import.meta.env.VITE_IMAGE_BASE_URL || `${API_BASE_URL}/storage`;
@@ -44,13 +46,14 @@ export const fetchAbout = async () => {
   }
 
   const data = await response.json();
+  const ferroliAbout = keepFerroliObject(data);
 
-  if (!data || typeof data !== "object") {
+  if (!ferroliAbout) {
     return null;
   }
 
   return {
-    ...data,
-    image: formatAboutImageUrl(data.image),
+    ...ferroliAbout,
+    image: formatAboutImageUrl(ferroliAbout.image),
   };
 };

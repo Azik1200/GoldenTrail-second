@@ -1,3 +1,5 @@
+import { filterFerroliList } from "./ferroli";
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://goldentrail.az";
 
 const resolveLanguage = () => {
@@ -32,5 +34,5 @@ export const fetchTestimonials = async () => {
     return [];
   }
 
-  return data;
+  return filterFerroliList(data);
 };

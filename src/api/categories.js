@@ -1,3 +1,5 @@
+import { filterFerroliTree } from "./ferroli";
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://goldentrail.az";
 
 const resolveLanguage = () => {
@@ -14,7 +16,7 @@ const resolveLanguage = () => {
 };
 
 const normalizeCategories = (categories = []) =>
-  (Array.isArray(categories) ? categories : []).map((category) => ({
+  filterFerroliTree(categories).map((category) => ({
     id: category.id,
     slug: category.slug,
     name: category.name,

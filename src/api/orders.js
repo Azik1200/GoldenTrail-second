@@ -1,3 +1,5 @@
+import { filterFerroliList, keepFerroliObject } from "./ferroli";
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://goldentrail.az";
 
 const resolveLanguage = () => {
@@ -66,7 +68,7 @@ export const fetchOrders = async () => {
   }
 
   const data = await response.json();
-  return Array.isArray(data) ? data : [];
+  return Array.isArray(data) ? filterFerroliList(data) : [];
 };
 
 export const fetchOrderById = async (orderId) => {
@@ -91,5 +93,12 @@ export const fetchOrderById = async (orderId) => {
     throw new Error("Failed to load order details");
   }
 
-  return response.json();
+  const data = await response.json();
+  const ferroliOrder = keepFerroliObject(data);
+
+  if (!ferroliOrder) {
+    throw new Error("Order not available for this site");
+  }
+
+  return ferroliOrder;
 };
