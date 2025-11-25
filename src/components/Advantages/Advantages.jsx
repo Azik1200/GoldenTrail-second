@@ -1,11 +1,14 @@
 import "./Advantages.scss";
+import { useLanguageContext } from "../../context/LanguageContext";
 
 const Advantages = () => {
+  const { t } = useLanguageContext();
+
   return (
     <>
       <div className="advantages">
         <div className="container">
-          <div className="advantagesHeader">Преимущества нашей продукции</div>
+          <div className="advantagesHeader">{t("home.advantages.title")}</div>
           <div className="advantagesList">
             <div className="advantagesListItem">
               <div className="advantagesListItemSVG">
@@ -22,10 +25,11 @@ const Advantages = () => {
                   />
                 </svg>
               </div>
-              <div className="advantagesListItemName">Энергоэффективность</div>
+              <div className="advantagesListItemName">
+                {t("home.advantages.energyTitle")}
+              </div>
               <div className="advantagesListItemDesc">
-                Современные технологии позволяют снизить энергопотребление до
-                30%, что делает нашу продукцию экономичной и экологичной.
+                {t("home.advantages.energyDesc")}
               </div>
             </div>
             <div className="advantagesListItem">
@@ -44,12 +48,10 @@ const Advantages = () => {
                 </svg>
               </div>
               <div className="advantagesListItemName">
-                Надёжность и долговечность
+                {t("home.advantages.reliabilityTitle")}
               </div>
               <div className="advantagesListItemDesc">
-                Прочные материалы и строгий контроль качества гарантируют
-                стабильную работу оборудования даже при интенсивной
-                эксплуатации.
+                {t("home.advantages.reliabilityDesc")}
               </div>
             </div>
             <div className="advantagesListItem">
@@ -67,11 +69,11 @@ const Advantages = () => {
                   />
                 </svg>
               </div>
-              <div className="advantagesListItemName">Умные технологии</div>
+              <div className="advantagesListItemName">
+                {t("home.advantages.smartTitle")}
+              </div>
               <div className="advantagesListItemDesc">
-                Инновационные функции, такие как цифровое управление и
-                автоматическая регулировка, обеспечивают удобство и полный
-                контроль за системой.
+                {t("home.advantages.smartDesc")}
               </div>
             </div>
             <div className="advantagesListItem">
@@ -89,11 +91,11 @@ const Advantages = () => {
                   />
                 </svg>
               </div>
-              <div className="advantagesListItemName">Сервис и поддержка</div>
+              <div className="advantagesListItemName">
+                {t("home.advantages.serviceTitle")}
+              </div>
               <div className="advantagesListItemDesc">
-                Мы предоставляем официальную гарантию, профессиональную
-                установку и быстрое сервисное обслуживание через нашу
-                авторизованную сеть.
+                {t("home.advantages.serviceDesc")}
               </div>
             </div>
           </div>

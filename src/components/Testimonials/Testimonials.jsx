@@ -1,5 +1,6 @@
 import "./Testimonials.scss";
 import useTestimonials from "../../hooks/useTestimonials";
+import { useLanguageContext } from "../../context/LanguageContext";
 
 const formatDate = (value) => {
   if (!value) return "";
@@ -16,11 +17,12 @@ const formatDate = (value) => {
 const Testimonials = () => {
   const testimonials = useTestimonials();
   const hasTestimonials = Array.isArray(testimonials) && testimonials.length > 0;
+  const { t } = useLanguageContext();
 
   return (
     <div className="testimonials">
       <div className="container">
-        <h2 className="testimonialsHeader">Отзывы клиентов</h2>
+        <h2 className="testimonialsHeader">{t("home.testimonials.title")}</h2>
         <div className="testimonialsList">
           {hasTestimonials ? (
             testimonials.map((item, index) => (
@@ -35,7 +37,7 @@ const Testimonials = () => {
               </div>
             ))
           ) : (
-            <div className="testimonialsEmpty">Пока нет отзывов.</div>
+            <div className="testimonialsEmpty">{t("home.testimonials.empty")}</div>
           )}
         </div>
       </div>

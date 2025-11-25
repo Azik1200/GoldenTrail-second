@@ -1,25 +1,26 @@
 import "./Warranty.scss";
+import { useLanguageContext } from "../../context/LanguageContext";
 
 const Warranty = () => {
+  const { t } = useLanguageContext();
+
+  const title = t("home.warranty.title");
+  const description = t("home.warranty.description");
+  const monthsValue = t("home.warranty.monthsValue");
+  const monthsLabel = t("home.warranty.monthsLabel");
+
   return (
     <>
       <div className="warranty">
         <div className="container">
           <div className="warrantyWrapper">
             <div className="warrantyText">
-              <h2 className="warrantyHeader">Гарантия</h2>
-              <div className="warrantyDesc">
-                Мы уверены в надёжности и качестве нашей продукции, поэтому
-                предоставляем 2 года официальной гарантии. В течение
-                гарантийного срока вы получаете бесплатное сервисное
-                обслуживание и ремонт в случае выявления заводских дефектов.
-                Наша сервисная сеть всегда готова помочь вам, чтобы ваша техника
-                работала бесперебойно и дарила комфорт каждый день.
-              </div>
+              <h2 className="warrantyHeader">{title}</h2>
+              <div className="warrantyDesc">{description}</div>
             </div>
             <div className="warrantyTime">
-              <div className="warrantyTimeNumber">24</div>
-              <div className="warrantyTimeText">месяца</div>
+              <div className="warrantyTimeNumber">{monthsValue}</div>
+              <div className="warrantyTimeText">{monthsLabel}</div>
             </div>
           </div>
         </div>
