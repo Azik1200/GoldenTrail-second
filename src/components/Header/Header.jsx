@@ -189,7 +189,7 @@ const Header = () => {
               </div>
               <div className="headerNew_right">
                 <div className="headerNew_languages">
-                  {["az", "ru"].map((lang) => (
+                  {["az", "ru", "en"].map((lang) => (
                     <button
                       key={lang}
                       className={`headerNew_languages_btn ${
@@ -226,7 +226,7 @@ const Header = () => {
                   id="chapter-1"
                   onClick={() => setActiveTab("chapter-1")}
                 >
-                  Отопление
+                  {t("navigation.heating")}
                 </div>
                 <div
                   className={`headerDropdownDesktop_chapter_item ${
@@ -235,7 +235,7 @@ const Header = () => {
                   id="chapter-2"
                   onClick={() => setActiveTab("chapter-2")}
                 >
-                  Возобновляемые источники энергии
+                  {t("navigation.renewables")}
                 </div>
                 <div
                   className={`headerDropdownDesktop_chapter_item ${
@@ -244,7 +244,7 @@ const Header = () => {
                   id="chapter-2"
                   onClick={() => setActiveTab("chapter-3")}
                 >
-                  Климатизация
+                  {t("navigation.climate")}
                 </div>
               </div>
 
@@ -252,27 +252,27 @@ const Header = () => {
                 {activeTab === "chapter-1" && (
                   <ul className="headerDropdownDesktop_categories_list">
                     <li className="headerDropdownDesktop_categories_item">
-                      <a href="#">Котлы</a>
+                      <a href="#">{t("navigation.boilers")}</a>
                     </li>
                     <li className="headerDropdownDesktop_categories_item">
-                      <a href="#">Водонагреватели</a>
+                      <a href="#">{t("navigation.waterHeaters")}</a>
                     </li>
                     <li className="headerDropdownDesktop_categories_item">
-                      <a href="#">Горелки</a>
+                      <a href="#">{t("navigation.burners")}</a>
                     </li>
                   </ul>
                 )}
                 {activeTab === "chapter-2" && (
                   <ul className="headerDropdownDesktop_categories_list">
                     <li className="headerDropdownDesktop_categories_item">
-                      <a href="#">Солнечные тепловые системы</a>
+                      <a href="#">{t("navigation.solar")}</a>
                     </li>
                   </ul>
                 )}
                 {activeTab === "chapter-3" && (
                   <ul className="headerDropdownDesktop_categories_list">
                     <li className="headerDropdownDesktop_categories_item">
-                      <a href="#">Сплит-системы и мультисплит-системы</a>
+                      <a href="#">{t("navigation.splits")}</a>
                     </li>
                   </ul>
                 )}
@@ -283,104 +283,104 @@ const Header = () => {
 
         <div className="headerDropdownMobile">
           <div className="container">
-            <div className="headerDropdownMobile_wrapper_main">
-              <div className="headerDropdownMobile_item">
-                <div className="headerDropdownMobile_item_main-btn production">
-                  Продукция
+              <div className="headerDropdownMobile_wrapper_main">
+                <div className="headerDropdownMobile_item">
+                  <div className="headerDropdownMobile_item_main-btn production">
+                    {t("header.production")}
+                  </div>
+                  <div className="headerDropdownMobile_item_content">
+                    <div
+                      className="headerDropdownMobile_item_content_btn"
+                      id="chapter-mob-1"
+                    >
+                      {t("navigation.heating")}
+                    </div>
+                    <div
+                      className="headerDropdownMobile_item_content_btn"
+                      id="chapter-mob-2"
+                    >
+                      {t("navigation.renewables")}
+                    </div>
+                    <div
+                      className="headerDropdownMobile_item_content_btn"
+                      id="chapter-mob-3"
+                    >
+                      {t("navigation.climate")}
+                    </div>
+                  </div>
                 </div>
-                <div className="headerDropdownMobile_item_content">
-                  <div
-                    className="headerDropdownMobile_item_content_btn"
-                    id="chapter-mob-1"
-                  >
-                    Отопление
-                  </div>
-                  <div
-                    className="headerDropdownMobile_item_content_btn"
-                    id="chapter-mob-2"
-                  >
-                    Возобновляемые источники энергии
-                  </div>
-                  <div
-                    className="headerDropdownMobile_item_content_btn"
-                    id="chapter-mob-3"
-                  >
-                    Климатизация
-                  </div>
-                </div>
+                <div className="headerDropdownMobile_item">{t("header.about")}</div>
+                <div className="headerDropdownMobile_item">{t("header.contacts")}</div>
               </div>
-              <div className="headerDropdownMobile_item">О нас</div>
-              <div className="headerDropdownMobile_item">Контакты</div>
-            </div>
-            <div className="headerDropdownMobile_wrapper_second">
-              <div
-                className="headerDropdownMobile_wrapper_second-inner"
-                data-id="chapter-mob-1"
-              >
-                <button
-                  className="headerDropdownMobile_wrapper_second-back"
-                  id="headerGOBACK"
+              <div className="headerDropdownMobile_wrapper_second">
+                <div
+                  className="headerDropdownMobile_wrapper_second-inner"
+                  data-id="chapter-mob-1"
                 >
-                  Назад
-                </button>
-                <div className="headerDropdownMobile_wrapper_second-inner-innerest">
-                  <div className="headerDropdownMobile_wrapper_second-inner_name">
-                    Отопление
+                  <button
+                    className="headerDropdownMobile_wrapper_second-back"
+                    id="headerGOBACK"
+                  >
+                    {t("navigation.back")}
+                  </button>
+                  <div className="headerDropdownMobile_wrapper_second-inner-innerest">
+                    <div className="headerDropdownMobile_wrapper_second-inner_name">
+                      {t("navigation.heating")}
+                    </div>
+                    <ul className="headerDropdownMobile_wrapper_second-inner-list">
+                      <li className="headerDropdownMobile_wrapper_second-inner-list-item">
+                        <a href="#">{t("navigation.boilers")}</a>
+                      </li>
+                      <li className="headerDropdownMobile_wrapper_second-inner-list-item">
+                        <a href="#">{t("navigation.waterHeaters")}</a>
+                      </li>
+                      <li className="headerDropdownMobile_wrapper_second-inner-list-item">
+                        <a href="#">{t("navigation.burners")}</a>
+                      </li>
+                    </ul>
                   </div>
-                  <ul className="headerDropdownMobile_wrapper_second-inner-list">
-                    <li className="headerDropdownMobile_wrapper_second-inner-list-item">
-                      <a href="#">Котлы</a>
-                    </li>
-                    <li className="headerDropdownMobile_wrapper_second-inner-list-item">
-                      <a href="#">Водонагреватели</a>
-                    </li>
-                    <li className="headerDropdownMobile_wrapper_second-inner-list-item">
-                      <a href="#">Горелки</a>
-                    </li>
-                  </ul>
                 </div>
-              </div>
-              <div
-                className="headerDropdownMobile_wrapper_second-inner"
-                data-id="chapter-mob-2"
-              >
-                <button
-                  className="headerDropdownMobile_wrapper_second-back"
-                  id="headerGOBACK"
+                <div
+                  className="headerDropdownMobile_wrapper_second-inner"
+                  data-id="chapter-mob-2"
                 >
-                  Назад
-                </button>
-                <div className="headerDropdownMobile_wrapper_second-inner-innerest">
-                  <div className="headerDropdownMobile_wrapper_second-inner_name">
-                    Возобновляемые источники энергии
+                  <button
+                    className="headerDropdownMobile_wrapper_second-back"
+                    id="headerGOBACK"
+                  >
+                    {t("navigation.back")}
+                  </button>
+                  <div className="headerDropdownMobile_wrapper_second-inner-innerest">
+                    <div className="headerDropdownMobile_wrapper_second-inner_name">
+                      {t("navigation.renewables")}
+                    </div>
+                    <ul className="headerDropdownMobile_wrapper_second-inner-list">
+                      <li className="headerDropdownMobile_wrapper_second-inner-list-item">
+                        <a href="#">{t("navigation.solar")}</a>
+                      </li>
+                    </ul>
                   </div>
-                  <ul className="headerDropdownMobile_wrapper_second-inner-list">
-                    <li className="headerDropdownMobile_wrapper_second-inner-list-item">
-                      <a href="#">Солнечные тепловые системы</a>
-                    </li>
-                  </ul>
                 </div>
-              </div>
-              <div
-                className="headerDropdownMobile_wrapper_second-inner"
-                data-id="chapter-mob-3"
-              >
-                <button
-                  className="headerDropdownMobile_wrapper_second-back"
-                  id="headerGOBACK"
+                <div
+                  className="headerDropdownMobile_wrapper_second-inner"
+                  data-id="chapter-mob-3"
                 >
-                  Назад
-                </button>
-                <div className="headerDropdownMobile_wrapper_second-inner-innerest">
-                  <div className="headerDropdownMobile_wrapper_second-inner_name">
-                    Климатизация
+                  <button
+                    className="headerDropdownMobile_wrapper_second-back"
+                    id="headerGOBACK"
+                  >
+                    {t("navigation.back")}
+                  </button>
+                  <div className="headerDropdownMobile_wrapper_second-inner-innerest">
+                    <div className="headerDropdownMobile_wrapper_second-inner_name">
+                      {t("navigation.climate")}
+                    </div>
+                    <ul className="headerDropdownMobile_wrapper_second-inner-list">
+                      <li className="headerDropdownMobile_wrapper_second-inner-list-item">
+                        <a href="#">{t("navigation.splits")}</a>
+                      </li>
+                    </ul>
                   </div>
-                  <ul className="headerDropdownMobile_wrapper_second-inner-list">
-                    <li className="headerDropdownMobile_wrapper_second-inner-list-item">
-                      <a href="#">Сплит-системы и мультисплит-системы</a>
-                    </li>
-                  </ul>
-                </div>
               </div>
             </div>
           </div>
@@ -393,7 +393,7 @@ const Header = () => {
                 <input
                   type="text"
                   className="headerNewSearchInput"
-                  placeholder="Search"
+                  placeholder={t("header.searchPlaceholder")}
                 />
               </form>
               <button className="headerNewCloseBtn">
@@ -416,14 +416,14 @@ const Header = () => {
                           </div>
                           <div className="headerResultsListItem_wrapper-inner">
                             <div className="headerResultsListItem_name">
-                              Фартук рентгенозащитный
+                              {t("navigation.sampleApron")}
                             </div>
                             <div className="headerResultsListItem_price">
                               <div className="headerResultsListItem_price-actual">
-                                7 800 ₽
+                                7 800 ₼
                               </div>
                               <div className="headerResultsListItem_price-old">
-                                11 300 ₽
+                                11 300 ₼
                               </div>
                             </div>
                           </div>
@@ -438,11 +438,11 @@ const Header = () => {
                           </div>
                           <div className="headerResultsListItem_wrapper-inner">
                             <div className="headerResultsListItem_name">
-                              Очки рентгенозащитные
+                              {t("navigation.sampleGlasses")}
                             </div>
                             <div className="headerResultsListItem_price">
                               <div className="headerResultsListItem_price-actual">
-                                4 200 ₽
+                                4 200 ₼
                               </div>
                               <div className="headerResultsListItem_price-old"></div>
                             </div>
@@ -453,25 +453,19 @@ const Header = () => {
                   </ul>
                 </div>
                 <div className="headerResultsMinus">
-                  <p className="headerNewSearchResultsMinus">
-                    По вашему запросу ничего не найдено
-                  </p>
+                  <p className="headerNewSearchResultsMinus">{t("navigation.searchEmpty")}</p>
                 </div>
                 <div className="headerResultsStory">
                   <ul className="headerResultsStoryList">
                     <li className="headerResultsStoryListItem">
                       <div className="headerResultsStoryListItemName">
-                        Защита от мошенников
+                        {t("navigation.storyOne")}
                       </div>
-                      <button className="headerResultsStoryListItemBtn">
-                        Удалить
-                      </button>
+                      <button className="headerResultsStoryListItemBtn">{t("common.delete")}</button>
                     </li>
                     <li className="headerResultsStoryListItem">
                       <div className="headerResultsStoryListItemName">Защи</div>
-                      <button className="headerResultsStoryListItemBtn">
-                        Удалить
-                      </button>
+                      <button className="headerResultsStoryListItemBtn">{t("common.delete")}</button>
                     </li>
                   </ul>
                 </div>

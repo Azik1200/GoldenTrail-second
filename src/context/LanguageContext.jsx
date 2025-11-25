@@ -11,11 +11,11 @@ const resolveInitialLanguage = () => {
   if (typeof window === "undefined") return "az";
 
   const stored = window.localStorage.getItem("language");
-  if (stored && ["az", "ru"].includes(stored)) return stored;
+  if (stored && ["az", "ru", "en"].includes(stored)) return stored;
 
   if (window.navigator?.language) {
     const short = window.navigator.language.split("-")[0];
-    if (["az", "ru"].includes(short)) return short;
+    if (["az", "ru", "en"].includes(short)) return short;
   }
 
   return "az";
@@ -24,6 +24,15 @@ const resolveInitialLanguage = () => {
 const getNestedTranslation = (lang, key) => {
   const segments = key.split(".");
   return segments.reduce((acc, segment) => acc?.[segment], translations[lang]);
+};
+
+const formatTranslation = (value, params) => {
+  if (typeof value !== "string") return value;
+
+  return Object.keys(params || {}).reduce(
+    (acc, paramKey) => acc.replaceAll(`{{${paramKey}}}`, params[paramKey]),
+    value
+  );
 };
 
 export const LanguageProvider = ({ children }) => {
@@ -39,15 +48,23 @@ export const LanguageProvider = ({ children }) => {
   }, [language]);
 
   const setLanguage = useCallback((nextLang) => {
-    if (!["az", "ru"].includes(nextLang)) return;
+    if (!["az", "ru", "en"].includes(nextLang)) return;
     setLanguageState(nextLang);
   }, []);
 
   const t = useCallback(
-    (key) =>
-      getNestedTranslation(language, key) ||
-      getNestedTranslation(language === "az" ? "ru" : "az", key) ||
-      key,
+    (key, params = {}) => {
+      const primary = getNestedTranslation(language, key);
+      if (primary) return formatTranslation(primary, params);
+
+      const fallbacks = ["az", "ru", "en"].filter((lang) => lang !== language);
+      for (const fb of fallbacks) {
+        const fallback = getNestedTranslation(fb, key);
+        if (fallback) return formatTranslation(fallback, params);
+      }
+
+      return key;
+    },
     [language]
   );
 

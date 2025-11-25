@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import CategoriesForEmtyBasketAndFav from "../CategoriesForEmtyBasketAndFav/CategoriesForEmtyBasketAndFav";
 import useCart from "../../hooks/useCart";
 import useOrder from "../../hooks/useOrder";
+import useLanguage from "../../hooks/useLanguage";
 
 const formatCurrency = (value) => {
   const number = typeof value === "number" ? value : Number(value);
@@ -18,6 +19,7 @@ const formatCurrency = (value) => {
 const BasketList = () => {
   const { items, loading, error, removeItem, incrementItem, decrementItem } = useCart();
   const { submitOrder, loading: orderLoading, error: orderError, result } = useOrder();
+  const { t } = useLanguage();
 
   const [paymentMethodId, setPaymentMethodId] = useState(1);
   const [shippingMethodId, setShippingMethodId] = useState(1);
@@ -49,7 +51,7 @@ const BasketList = () => {
 
     try {
       const response = await submitOrder({ paymentMethodId, shippingMethodId });
-      setOrderSuccess(response?.message || "Заказ успешно оформлен");
+      setOrderSuccess(response?.message || t("basket.orderSuccess"));
     } catch (err) {
       setOrderSuccess(null);
     }
@@ -59,13 +61,11 @@ const BasketList = () => {
     <div className="basket">
       <div className="container">
         <h1 className="basketHeader">
-          Товары в корзине[<span>{totals.count}</span>]
+          {t("basket.title")}[<span>{totals.count}</span>]
         </h1>
 
-        {loading && <p className="emptyText">Загрузка корзины...</p>}
-        {error && (
-          <p className="emptyText">Не удалось загрузить корзину. Повторите попытку.</p>
-        )}
+        {loading && <p className="emptyText">{t("basket.loading")}</p>}
+        {error && <p className="emptyText">{t("basket.error")}</p>}
 
         {hasItems && (
           <div className="basketWrapper">
@@ -94,21 +94,21 @@ const BasketList = () => {
                     <div className="basketItemInfo">
                       <div className="basketItemInfoTop">
                         <div className="basketItemInfoText">
-                          <h3 className="basketItemTitle">{item.title || "Без названия"}</h3>
+                          <h3 className="basketItemTitle">{item.title || t("basket.noTitle")}</h3>
                           <p className="basketItemDesc">
                             {[item.color, item.size].filter(Boolean).join(" • ") ||
-                              "Характеристики отсутствуют"}
+                              t("basket.noCharacteristics")}
                           </p>
                         </div>
                         <div
                           className="goodsItemCounterWrapper"
                           role="group"
-                          aria-label="Количество"
+                          aria-label={t("basket.quantityAria")}
                         >
                           <button
                             className="goodsItemCounterMinus"
                             onClick={() => decrementItem(item.id)}
-                            aria-label="Уменьшить количество"
+                            aria-label={t("basket.decrementAria")}
                             disabled={loading || !item?.id}
                           >
                             -
@@ -119,7 +119,7 @@ const BasketList = () => {
                           <button
                             className="goodsItemCounterPlus"
                             onClick={() => incrementItem(item.id)}
-                            aria-label="Добавить единицу"
+                            aria-label={t("basket.incrementAria")}
                             disabled={loading || !item?.id}
                           >
                             +
@@ -136,7 +136,7 @@ const BasketList = () => {
                           onClick={() => removeItem(item.id)}
                           disabled={loading || !item?.id}
                         >
-                          Удалить
+                          {t("basket.delete")}
                         </button>
                       </div>
                     </div>
@@ -146,15 +146,15 @@ const BasketList = () => {
             </ul>
             <form className="basketResult" onSubmit={handleOrder}>
               <div className="basketResultMain">
-                <div className="basketResultMainText">Итого</div>
+                <div className="basketResultMainText">{t("basket.total")}</div>
                 <div className="basketResultMainNumbers">
                   <p className="count">{formatCurrency(totals.totalPrice)}</p>
-                  <span>Без учета стоимости доставки</span>
+                  <span>{t("basket.totalNote")}</span>
                 </div>
               </div>
               <div className="basketResultControls">
                 <label className="basketResultField">
-                  Способ оплаты (ID)
+                  {t("basket.paymentMethod")}
                   <input
                     type="number"
                     min="1"
@@ -164,7 +164,7 @@ const BasketList = () => {
                   />
                 </label>
                 <label className="basketResultField">
-                  Способ доставки (ID)
+                  {t("basket.shippingMethod")}
                   <input
                     type="number"
                     min="1"
@@ -179,17 +179,17 @@ const BasketList = () => {
                 className="mainBtn basketResultBtn"
                 disabled={!hasItems || orderLoading || loading}
               >
-                {orderLoading ? "Оформление..." : "Оформить заказ"}
+                {orderLoading ? t("basket.submitting") : t("basket.submit")}
               </button>
-              <span className="payment">
-                Доступные способы оплаты и доставки можно выбрать при оформлении заказа.
-              </span>
+              <span className="payment">{t("basket.paymentNote")}</span>
               {orderSuccess && <p className="orderStatus success">{orderSuccess}</p>}
               {orderError && (
-                <p className="orderStatus error">Не удалось оформить заказ. Попробуйте снова.</p>
+                <p className="orderStatus error">{t("basket.submitError")}</p>
               )}
               {result?.order_id && (
-                <p className="orderStatus success">Номер заказа: {result.order_id}</p>
+                <p className="orderStatus success">
+                  {t("basket.orderNumber", { orderId: result.order_id })}
+                </p>
               )}
             </form>
           </div>
@@ -197,7 +197,7 @@ const BasketList = () => {
 
         {!loading && !hasItems && !error && (
           <div>
-            <p className="emptyText">Ваша корзина пуста</p>
+            <p className="emptyText">{t("basket.empty")}</p>
             <CategoriesForEmtyBasketAndFav />
           </div>
         )}

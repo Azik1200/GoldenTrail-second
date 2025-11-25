@@ -1,6 +1,9 @@
 import "./404.scss";
+import useLanguage from "../../hooks/useLanguage";
 
 const Element404 = () => {
+  const { t } = useLanguage();
+
   return (
     <>
       <div className="Element404">
@@ -22,13 +25,10 @@ const Element404 = () => {
                   />
                 </svg>
               </div>
-              <h1 className="Element404Header">Страница не найдена</h1>
-              <div className="Element404Text">
-                К сожалению, запрашиваемая страница не существует или была
-                удалена. Вернитесь на главную или воспользуйтесь меню навигации.
-              </div>
+              <h1 className="Element404Header">{t("notFound.title")}</h1>
+              <div className="Element404Text">{t("notFound.message")}</div>
               <a href="/" className="mainBtn">
-                На главную
+                {t("notFound.goHome")}
               </a>
             </div>
           </div>
