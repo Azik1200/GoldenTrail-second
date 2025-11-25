@@ -1,23 +1,115 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useParams } from "react-router-dom";
 
 import { Navigation } from "swiper/modules";
 
-import img1 from "./../../assets/img/goods/1.png";
-
 import "./ProductElement.scss";
 
-import products from "./../../tools/Products";
+import { fetchProduct, formatProductImageUrl } from "../../api/products";
+import { addOrUpdateCartItem } from "../../api/cart";
+
+const formatPrice = (value) =>
+  typeof value === "number" ? `${value.toFixed(2)} AZN` : value || "";
+
+const computePrices = (product) => {
+  const price = typeof product.price === "number" ? product.price : null;
+  const discount =
+    typeof product.discount === "number" && product.discount > 0
+      ? product.discount
+      : null;
+
+  const discounted =
+    price && discount ? price * (1 - discount / 100) : price ?? null;
+
+  return {
+    actualPrice: formatPrice(product.actualPrice ?? discounted),
+    oldPrice:
+      product.oldPrice ||
+      (discount && price ? formatPrice(price) : product.oldPrice ?? ""),
+  };
+};
 
 const ProductElement = () => {
   const { id } = useParams();
   const productId = Number(id);
-  const product = products.find((item) => item.id === productId);
+  const [product, setProduct] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [quantity, setQuantity] = useState(1);
+  const [isUpdatingCart, setIsUpdatingCart] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+    setIsLoading(true);
+
+    fetchProduct(productId)
+      .then((data) => {
+        if (isMounted) {
+          setProduct(data);
+          setIsLoading(false);
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setProduct(null);
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [productId]);
+
+  if (isLoading) {
+    return <div className="container">Загрузка товара...</div>;
+  }
+
   if (!product) {
     return <div className="container">Товар не найден</div>;
   }
+
+  const { actualPrice, oldPrice } = computePrices(product);
+  const displayTag =
+    product.goodsTag || (product.is_new ? "New" : product.is_on_sale ? "Sale" : "");
+  const displayName = product.name || product.title || product.sku || "";
+  const displayDesc =
+    product.desc || product.short_description || product.description || "";
+  const images =
+    (product.images && product.images.length > 0
+      ? product.images
+      : product.image
+        ? [formatProductImageUrl(product.image)]
+        : []) || [];
+  const inStock = product.isInStock ?? product.in_stock ?? true;
+
+  const handleCartUpdate = async (nextQty) => {
+    if (!productId || nextQty < 1) return;
+
+    setIsUpdatingCart(true);
+
+    try {
+      const response = await addOrUpdateCartItem({
+        productId,
+        quantity: nextQty,
+        price: product.price,
+      });
+
+      setQuantity(response?.item?.quantity ?? nextQty);
+    } catch (error) {
+      console.error("Не удалось добавить товар в корзину", error);
+    } finally {
+      setIsUpdatingCart(false);
+    }
+  };
+
+  const handleIncrease = () => handleCartUpdate(quantity + 1);
+  const handleDecrease = () => {
+    if (quantity <= 1) return;
+    handleCartUpdate(quantity - 1);
+  };
+
   return (
     <>
       <div className="product">
@@ -32,45 +124,47 @@ const ProductElement = () => {
             </a>{" "}
             /{" "}
             <a href="#" className="breadcrumpLink">
-              {product.name}
+              {displayName}
             </a>
           </div>
 
           <div className="productWrapper">
             <div className="productSlider">
-              {product.goodsTag && (
-                <div className="productTag">{product.goodsTag}</div>
+              {displayTag && <div className="productTag">{displayTag}</div>}
+
+              {images.length > 0 ? (
+                <Swiper
+                  navigation={{
+                    nextEl: ".product-next",
+                    prevEl: ".product-prev",
+                  }}
+                  modules={[Navigation]}
+                  className="mySwiper"
+                >
+                  {images.map((image, index) => (
+                    <SwiperSlide key={index}>
+                      <img
+                        className="sliderImg"
+                        src={formatProductImageUrl(image)}
+                        alt={`image-${index}`}
+                      />
+                    </SwiperSlide>
+                  ))}
+
+                  <div className="swiper-button-prev product-prev"></div>
+                  <div className="swiper-button-next product-next"></div>
+                </Swiper>
+              ) : (
+                <div className="productPlaceholder">Нет изображения</div>
               )}
-
-              <Swiper
-                navigation={{
-                  nextEl: ".product-next",
-                  prevEl: ".product-prev",
-                }}
-                modules={[Navigation]}
-                className="mySwiper"
-              >
-                {product.numberOfImages.map((image, index) => (
-                  <SwiperSlide key={index}>
-                    <img
-                      className="sliderImg"
-                      src={image}
-                      alt={`image-${index}`}
-                    />
-                  </SwiperSlide>
-                ))}
-
-                <div className="swiper-button-prev product-prev"></div>
-                <div className="swiper-button-next product-next"></div>
-              </Swiper>
             </div>
             <div className="productInfo">
               <div className="productInfoTop">
-                <h1 className="productName">{product.name}</h1>
-                <div className="productMiniDesc">{product.desc}</div>
+                <h1 className="productName">{displayName}</h1>
+                <div className="productMiniDesc">{displayDesc}</div>
                 <div className="productMiniInfo">
                   <div className="productInStock">
-                    {product.isInStock ? (
+                    {inStock ? (
                       <div className="productInStokYes">
                         <span></span> В наличии
                       </div>
@@ -99,32 +193,46 @@ const ProductElement = () => {
                     Гарантия 2 года
                   </div>
                 </div>
-                <div className="productMaxInfo">{product.deskMax}</div>
               </div>
               <div className="productInfoBottom">
                 <div className="productInfoBottomTop">
                   <div className="productInfoPrice">
-                    <div className="productInfoActualPrice">
-                      {product.actualPrice}
-                    </div>
-                    <div className="productInfoOldPrice">
-                      {product.oldPrice}
-                    </div>
+                    <div className="productInfoActualPrice">{actualPrice}</div>
+                    <div className="productInfoOldPrice">{oldPrice}</div>
                   </div>
-                  <div className="productInfoCount">
-                    <div className="productInfoCountText">Количество</div>
-                    <div className="productInfoCounter">
-                      <button className="productInfoMinus">-</button>
-                      <div className="productInfoBtn">1</div>
-                      <button className="productInfoPlus">-</button>
+                <div className="productInfoCount">
+                  <div className="productInfoCountText">Количество</div>
+                  <div className="productInfoCounter">
+                    <button
+                      className="productInfoMinus"
+                      onClick={handleDecrease}
+                      disabled={isUpdatingCart}
+                    >
+                      -
+                    </button>
+                    <div className="productInfoBtn" aria-live="polite">
+                      {quantity}
                     </div>
+                    <button
+                      className="productInfoPlus"
+                      onClick={handleIncrease}
+                      disabled={isUpdatingCart}
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
-                <div className="productInfoPurchase">
+              </div>
+              <div className="productInfoPurchase">
                   <button className="mainBtn btn1clickBtn">
                     Купить в 1 клик
                   </button>
-                  <button className="pirchaseBtn mainBtn">
+                  <button
+                    className="pirchaseBtn mainBtn"
+                    onClick={() => handleCartUpdate(quantity)}
+                    disabled={isUpdatingCart}
+                    aria-label="Добавить в корзину"
+                  >
                     <svg
                       width="21"
                       height="22"
@@ -157,162 +265,18 @@ const ProductElement = () => {
               </div>
             </div>
           </div>
-          <div className="productFullDesc">
-            <h2 className="productFullDescHeader">
-              Технические характеристики
-            </h2>
-            <div className="productFullDescWrapper">
-              <div className="productFullDescWrapperItem">
-                <div className="productFullDescWrapperItemTitle">
-                  Основные параметры:
+          {product.description && (
+            <div className="productFullDesc">
+              <h2 className="productFullDescHeader">Описание</h2>
+              <div className="productFullDescWrapper">
+                <div className="productFullDescWrapperItem">
+                  <div className="productFullDescWrapperItemListItemMeaning">
+                    {product.description}
+                  </div>
                 </div>
-                <ul className="productFullDescWrapperItemList">
-                  {product.technikalMeasuses.mainParameters.type && (
-                    <div className="productFullDescWrapperItemListItem">
-                      Тип:{" "}
-                      <span className="productFullDescWrapperItemListItemMeaning">
-                        {product.technikalMeasuses.mainParameters.type}
-                      </span>
-                    </div>
-                  )}
-                  {product.technikalMeasuses.mainParameters.power && (
-                    <div className="productFullDescWrapperItemListItem">
-                      Мощность:{" "}
-                      <span className="productFullDescWrapperItemListItemMeaning">
-                        {product.technikalMeasuses.mainParameters.power}
-                      </span>
-                    </div>
-                  )}
-                  {product.technikalMeasuses.mainParameters.efficiency && (
-                    <div className="productFullDescWrapperItemListItem">
-                      КПД:{" "}
-                      <span className="productFullDescWrapperItemListItemMeaning">
-                        {product.technikalMeasuses.mainParameters.efficiency}
-                      </span>
-                    </div>
-                  )}
-                  {product.technikalMeasuses.mainParameters.displacement && (
-                    <div className="productFullDescWrapperItemListItem">
-                      Водоизмещение:{" "}
-                      <span className="productFullDescWrapperItemListItemMeaning">
-                        {product.technikalMeasuses.mainParameters.displacement}
-                      </span>
-                    </div>
-                  )}
-                </ul>
-              </div>
-              <div className="productFullDescWrapperItem">
-                <div className="productFullDescWrapperItemTitle">
-                  Электропитание:
-                </div>
-                <ul className="productFullDescWrapperItemList">
-                  {product.technikalMeasuses.powerSupply.voltage && (
-                    <div className="productFullDescWrapperItemListItem">
-                      Напряжение:{" "}
-                      <span className="productFullDescWrapperItemListItemMeaning">
-                        {product.technikalMeasuses.powerSupply.voltage}
-                      </span>
-                    </div>
-                  )}
-                  {product.technikalMeasuses.powerSupply.frequency && (
-                    <div className="productFullDescWrapperItemListItem">
-                      Частота:{" "}
-                      <span className="productFullDescWrapperItemListItemMeaning">
-                        {product.technikalMeasuses.powerSupply.frequency}
-                      </span>
-                    </div>
-                  )}
-                  {product.technikalMeasuses.powerSupply.powerConsumption && (
-                    <div className="productFullDescWrapperItemListItem">
-                      Потребляемая мощность:{" "}
-                      <span className="productFullDescWrapperItemListItemMeaning">
-                        {product.technikalMeasuses.powerSupply.powerConsumption}
-                      </span>
-                    </div>
-                  )}
-                </ul>
-              </div>
-              <div className="productFullDescWrapperItem">
-                <div className="productFullDescWrapperItemTitle">
-                  Габариты и вес:
-                </div>
-                <ul className="productFullDescWrapperItemList">
-                  {product.technikalMeasuses.dimensionsAndWeight.height && (
-                    <div className="productFullDescWrapperItemListItem">
-                      Высота:{" "}
-                      <span className="productFullDescWrapperItemListItemMeaning">
-                        {product.technikalMeasuses.dimensionsAndWeight.height}
-                      </span>
-                    </div>
-                  )}
-                  {product.technikalMeasuses.dimensionsAndWeight.width && (
-                    <div className="productFullDescWrapperItemListItem">
-                      Ширина:{" "}
-                      <span className="productFullDescWrapperItemListItemMeaning">
-                        {product.technikalMeasuses.dimensionsAndWeight.width}
-                      </span>
-                    </div>
-                  )}
-                  {product.technikalMeasuses.dimensionsAndWeight.depth && (
-                    <div className="productFullDescWrapperItemListItem">
-                      Глубина:{" "}
-                      <span className="productFullDescWrapperItemListItemMeaning">
-                        {product.technikalMeasuses.dimensionsAndWeight.depth}
-                      </span>
-                    </div>
-                  )}
-                  {product.technikalMeasuses.dimensionsAndWeight.depth && (
-                    <div className="productFullDescWrapperItemListItem">
-                      Вес:{" "}
-                      <span className="productFullDescWrapperItemListItemMeaning">
-                        {product.technikalMeasuses.dimensionsAndWeight.weight}
-                      </span>
-                    </div>
-                  )}
-                </ul>
-              </div>
-              <div className="productFullDescWrapperItem">
-                <div className="productFullDescWrapperItemTitle">
-                  Дополнительно:
-                </div>
-                <ul className="productFullDescWrapperItemList">
-                  {product.technikalMeasuses.additional.bodyMaterial && (
-                    <div className="productFullDescWrapperItemListItem">
-                      Материал корпуса:{" "}
-                      <span className="productFullDescWrapperItemListItemMeaning">
-                        {product.technikalMeasuses.additional.bodyMaterial}
-                      </span>
-                    </div>
-                  )}
-                  {product.technikalMeasuses.additional.controlSystem && (
-                    <div className="productFullDescWrapperItemListItem">
-                      Система управления:{" "}
-                      <span className="productFullDescWrapperItemListItemMeaning">
-                        {product.technikalMeasuses.additional.controlSystem}
-                      </span>
-                    </div>
-                  )}
-                  {product.technikalMeasuses.additional.noiseLevel && (
-                    <div className="productFullDescWrapperItemListItem">
-                      Уровень шума:{" "}
-                      <span className="productFullDescWrapperItemListItemMeaning">
-                        {" "}
-                        {product.technikalMeasuses.additional.noiseLevel}
-                      </span>
-                    </div>
-                  )}
-                  {product.technikalMeasuses.additional.warranty && (
-                    <div className="productFullDescWrapperItemListItem">
-                      Гарантия:{" "}
-                      <span className="productFullDescWrapperItemListItemMeaning">
-                        {product.technikalMeasuses.additional.warranty}
-                      </span>
-                    </div>
-                  )}
-                </ul>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>

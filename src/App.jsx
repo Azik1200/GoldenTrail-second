@@ -9,12 +9,16 @@ import Page404 from "./pages/404";
 import Favorites from "./pages/Favorites";
 import Catalog from "./pages/Catalog";
 import BuyInOneClick from "./components/BuyInOneClick/BuyInOneClick";
+import LoadingOverlay from "./components/LoadingOverlay/LoadingOverlay";
+import NavigationLoader from "./components/NavigationLoader";
 
 function App() {
   return (
     <>
+      <NavigationLoader />
       <Header />
       <BuyInOneClick />
+      <LoadingOverlay />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/basket" element={<Basket />} />

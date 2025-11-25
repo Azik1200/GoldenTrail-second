@@ -1,0 +1,125 @@
+.profile-card {
+  padding: 40px 0;
+  background: #f7f9fb;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  &__status {
+    font-size: 14px;
+    color: #2f80ed;
+
+    &--error {
+      color: #eb5757;
+    }
+  }
+
+  &__empty {
+    margin: 0;
+    color: #6c6c6c;
+  }
+
+  &__body {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    padding: 24px;
+    display: grid;
+    gap: 12px;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eef2f6;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__label {
+    color: #6c6c6c;
+    font-size: 14px;
+  }
+
+  &__value {
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  &__form {
+    display: grid;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  &__form-row {
+    display: grid;
+    gap: 6px;
+  }
+
+  &__form-label {
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+  }
+
+  input {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #e0e7ef;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+      border-color: #2f80ed;
+      box-shadow: 0 0 0 3px rgba(47, 128, 237, 0.1);
+      outline: none;
+    }
+
+    &:disabled {
+      background: #f5f7fa;
+      cursor: not-allowed;
+    }
+  }
+
+  &__form-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 4px;
+
+    button {
+      background: linear-gradient(90deg, #ffaf19 0%, #ff7d04 100%);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.2s ease;
+
+      &:hover:not(:disabled) {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 20px rgba(255, 126, 4, 0.25);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

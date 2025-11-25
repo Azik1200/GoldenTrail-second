@@ -1,6 +1,6 @@
 import "./CatalogItems.scss";
-import products from "../../tools/Products";
 import GoodsItem from "../GoodsItem/GoodsItem";
+import useProducts from "../../hooks/useProducts";
 
 // import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
@@ -9,6 +9,7 @@ import FiltersBar from "./../FiltersBar/FiltersBar";
 import { useState } from "react";
 
 const CatalogItems = () => {
+  const products = useProducts();
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   return (
     <>

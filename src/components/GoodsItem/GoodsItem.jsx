@@ -2,20 +2,87 @@
 import React, { useState } from "react";
 import "./GoodsItem.scss";
 import { Link } from "react-router-dom";
+import { addOrUpdateCartItem } from "../../api/cart";
+import { addFavorite } from "../../api/favorites";
+
+const formatPrice = (value) =>
+  typeof value === "number" ? `${value.toFixed(2)} AZN` : value || "";
+
+const computePrices = (product) => {
+  const price = typeof product.price === "number" ? product.price : null;
+  const discount =
+    typeof product.discount === "number" && product.discount > 0
+      ? product.discount
+      : null;
+
+  const discounted =
+    price && discount ? price * (1 - discount / 100) : price ?? null;
+
+  return {
+    actualPrice: formatPrice(product.actualPrice ?? discounted),
+    oldPrice:
+      product.oldPrice ||
+      (discount && price ? formatPrice(price) : product.oldPrice ?? ""),
+  };
+};
 
 const GoodsItem = ({ product }) => {
   const [qty, setQty] = useState(0);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [isFavoriting, setIsFavoriting] = useState(false);
 
   if (!product) {
     console.warn("GoodsItem: проп 'product' не передан");
     return null;
   }
 
-  const { id, goodsTag, img, name, desc, actualPrice, oldPrice } = product;
+  const { actualPrice, oldPrice } = computePrices(product);
+  const displayTag = product.goodsTag || (product.is_new ? "New" : "");
+  const displayName = product.name || product.title || product.sku || "";
+  const displayDesc = product.desc || product.sku || "";
+  const displayImage = product.img || product.image || "";
+  const id = product.id;
 
-  const handleAdd = () => setQty(1);
-  const handlePlus = () => setQty((q) => q + 1);
-  const handleMinus = () => setQty((q) => Math.max(0, q - 1));
+  const updateQuantity = async (nextQty) => {
+    if (!id || nextQty < 1) return;
+
+    setIsUpdating(true);
+
+    try {
+      const response = await addOrUpdateCartItem({
+        productId: id,
+        quantity: nextQty,
+        price: product.price,
+      });
+
+      setQty(response?.item?.quantity ?? nextQty);
+    } catch (error) {
+      console.error("Не удалось обновить корзину", error);
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  const handleAdd = () => updateQuantity(1);
+  const handlePlus = () => updateQuantity(qty + 1);
+  const handleMinus = () => {
+    if (qty <= 1) return;
+    updateQuantity(qty - 1);
+  };
+
+  const handleFavorite = async () => {
+    if (!id) return;
+
+    setIsFavoriting(true);
+
+    try {
+      await addFavorite(id);
+    } catch (error) {
+      console.error("Не удалось добавить в избранное", error);
+    } finally {
+      setIsFavoriting(false);
+    }
+  };
 
   return (
     <div className="goodsItemWrapper">
@@ -27,7 +94,7 @@ const GoodsItem = ({ product }) => {
           aria-label="Открыть товар"
         />
         <div className="goodsItemVisual">
-          {goodsTag && <div className="goodsItemVisualTag">{goodsTag}</div>}
+          {displayTag && <div className="goodsItemVisualTag">{displayTag}</div>}
 
           <div className="goodsItemVisualActions">
             <button
@@ -37,16 +104,18 @@ const GoodsItem = ({ product }) => {
             <button
               className="goodsItemVisualActionBtn"
               aria-label="В избранное"
+              onClick={handleFavorite}
+              disabled={isFavoriting}
             />
           </div>
 
           <div className="goodsItemVisualImage">
-            <img src={img} alt={name} />
+            <img src={displayImage} alt={displayName} />
           </div>
         </div>
 
-        <div className="goodsItemName">{name}</div>
-        <div className="goodsItemDesc">{desc}</div>
+        <div className="goodsItemName">{displayName}</div>
+        <div className="goodsItemDesc">{displayDesc}</div>
       </div>
 
       <div className="goodsItemBottom">
@@ -60,6 +129,7 @@ const GoodsItem = ({ product }) => {
             type="button"
             className="goodsItemAddToBasket mainBtn addToBasketBtn"
             onClick={handleAdd}
+            disabled={isUpdating}
           >
             Добавить в корзину
           </button>
@@ -75,6 +145,7 @@ const GoodsItem = ({ product }) => {
                 className="goodsItemCounterPlus"
                 onClick={handlePlus}
                 aria-label="Увеличить"
+                disabled={isUpdating}
               >
                 +
               </button>
@@ -85,6 +156,7 @@ const GoodsItem = ({ product }) => {
                 className="goodsItemCounterMinus"
                 onClick={handleMinus}
                 aria-label="Уменьшить"
+                disabled={isUpdating}
               >
                 –
               </button>

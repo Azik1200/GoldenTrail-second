@@ -1,15 +1,18 @@
 // src/components/PopularGoods/PopularGoods.jsx
 import GoodsItem from "../GoodsItem/GoodsItem";
 import "./PopularGoods.scss";
-import products from "../../tools/Products";
+import useProducts from "../../hooks/useProducts";
 
 const PopularGoods = () => {
+  const products = useProducts();
+  const popularProducts = products.filter((p) => p.is_on_sale || p.is_new);
+
   return (
     <div className="popularGoods">
       <div className="container">
         <h2 className="popularGoodsHeader">Популярные товары</h2>
         <div className="popularGoodsWrapper">
-          {products.map((p) => (
+          {popularProducts.map((p) => (
             <GoodsItem key={p.id} product={p} />
           ))}
         </div>
