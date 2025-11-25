@@ -4,10 +4,14 @@ import searchResult1 from "./../../assets/img/searchResult1.png";
 import searchResult2 from "./../../assets/img/searchResult2.png";
 import "./Header.scss";
 import { NavLink } from "react-router-dom";
+import useLanguage from "../../hooks/useLanguage";
+import useLoading from "../../hooks/useLoading";
 
 const Header = () => {
   const [activeTab, setActiveTab] = useState("chapter-1");
   const [isHovered, setIsHovered] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
+  const { triggerManualLoading } = useLoading();
 
   useEffect(() => {
     const body = document.body;
@@ -24,6 +28,12 @@ const Header = () => {
 
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
+
+  const handleLanguageChange = async (lang) => {
+    if (lang === language) return;
+    await triggerManualLoading();
+    setLanguage(lang);
+  };
 
   useEffect(() => {
     const burger = document.getElementById("burgerID");
@@ -115,12 +125,12 @@ const Header = () => {
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                 >
-                  Продукция
+                  {t("header.production")}
                 </button>
                 <a href="#" className="headerNew_nav_btn">
-                  О нас
+                  {t("header.about")}
                 </a>
-                <button className="headerNew_nav_btn">Контакты</button>
+                <button className="headerNew_nav_btn">{t("header.contacts")}</button>
               </div>
               <div className="headerNew_functions">
                 <button
@@ -179,9 +189,17 @@ const Header = () => {
               </div>
               <div className="headerNew_right">
                 <div className="headerNew_languages">
-                  <button className="headerNew_languages_btn">AZ</button>
-                  <button className="headerNew_languages_btn">EN</button>
-                  <button className="headerNew_languages_btn active">RU</button>
+                  {["az", "ru"].map((lang) => (
+                    <button
+                      key={lang}
+                      className={`headerNew_languages_btn ${
+                        language === lang ? "active" : ""
+                      }`}
+                      onClick={() => handleLanguageChange(lang)}
+                    >
+                      {lang.toUpperCase()}
+                    </button>
+                  ))}
                 </div>
                 <button className="headerNew_right_burger" id="burgerID">
                   <span></span>

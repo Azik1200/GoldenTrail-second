@@ -1,9 +1,12 @@
 import "./Footer.scss";
 import logo from "./../../assets/img/Logo.svg";
+import useLanguage from "../../hooks/useLanguage";
 
 // import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const { t } = useLanguage();
+
   return (
     <>
       <div className="footerNewContactsMapWrapper">
@@ -31,7 +34,7 @@ const Footer = () => {
         </div>
         <div className="container">
           <div className="contactsInfoWrapper">
-            <h2 className="h2 contactsFooterHeader">Контакты</h2>
+            <h2 className="h2 contactsFooterHeader">{t("footer.contacts")}</h2>
             <ul className="contactsFooterList">
               <li className="contactsFooterListItem">
                 <a href="tel:+994103231074">
@@ -44,9 +47,7 @@ const Footer = () => {
               <li className="contactsFooterListItem">
                 <div>
                   <div className="contactsFooterListItemIcon workHours"></div>
-                  <div className="contactsFooterListItemText">
-                    Режим работы с 9:00-18:00
-                  </div>
+                  <div className="contactsFooterListItemText">{t("footer.workHours")}</div>
                 </div>
               </li>
               <li className="contactsFooterListItem">
@@ -60,9 +61,7 @@ const Footer = () => {
               <li className="contactsFooterListItem">
                 <div>
                   <div className="contactsFooterListItemIcon addres"></div>
-                  <div className="contactsFooterListItemText">
-                    Jafar Jabbarli, 37. Deluxe Palace
-                  </div>
+                  <div className="contactsFooterListItemText">{t("footer.address")}</div>
                 </div>
               </li>
             </ul>
@@ -75,7 +74,7 @@ const Footer = () => {
           <div className="footerNewTop">
             <div className="footerNewWrapper">
               <div className="footerNewItem">
-                <div className="footerNewItemName">Меню</div>
+                <div className="footerNewItemName">{t("footer.menu")}</div>
                 <ul className="footerNewItemList">
                   {/* <li className="footerNewItemListItem">
                     <a href="#">Личный кабинет</a>
@@ -84,46 +83,44 @@ const Footer = () => {
                     <a href="#">Вход/Регистрация</a>
                   </li> */}
                   <li className="footerNewItemListItem">
-                    <a href="#">Корзина</a>
+                    <a href="#">{t("footer.basket")}</a>
                   </li>
                   <li className="footerNewItemListItem">
-                    <a href="#">Избранное</a>
+                    <a href="#">{t("footer.favorites")}</a>
                   </li>
                   <li className="footerNewItemListItem">
-                    <a href="#">О нас</a>
+                    <a href="#">{t("footer.about")}</a>
                   </li>
                 </ul>
               </div>
               <div className="footerNewCatalogs">
                 <div className="footerNewCatalogItem">
-                  <div className="footerNewCatalogItemName">Отопление</div>
+                  <div className="footerNewCatalogItemName">{t("footer.heating")}</div>
                   <ul className="footerNewCatalogItemList">
                     <li className="footerNewCatalogItemListItem">
-                      <a href="#">Котлы</a>
+                      <a href="#">{t("footer.boilers")}</a>
                     </li>
                     <li className="footerNewCatalogItemListItem">
-                      <a href="#">Водонагреватели</a>
+                      <a href="#">{t("footer.heaters")}</a>
                     </li>
                     <li className="footerNewCatalogItemListItem">
-                      <a href="#">Горелки</a>
+                      <a href="#">{t("footer.burners")}</a>
                     </li>
                   </ul>
                 </div>
                 <div className="footerNewCatalogItem">
-                  <div className="footerNewCatalogItemName">
-                    Возобновляемые источники энергии
-                  </div>
+                  <div className="footerNewCatalogItemName">{t("footer.renewables")}</div>
                   <ul className="footerNewCatalogItemList">
                     <li className="footerNewCatalogItemListItem">
-                      <a href="#">Солнечные тепловые системы</a>
+                      <a href="#">{t("footer.solar")}</a>
                     </li>
                   </ul>
                 </div>
                 <div className="footerNewCatalogItem">
-                  <div className="footerNewCatalogItemName">Климатизация</div>
+                  <div className="footerNewCatalogItemName">{t("footer.climate")}</div>
                   <ul className="footerNewCatalogItemList">
                     <li className="footerNewCatalogItemListItem">
-                      <a href="#">Сплит-системы и мультисплит-системы</a>
+                      <a href="#">{t("footer.splits")}</a>
                     </li>
                   </ul>
                 </div>
@@ -144,7 +141,7 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="footerNewBottomLink"
                 >
-                  Политика конфиденциальности
+                  {t("footer.privacy")}
                 </a>
                 <a
                   href="/terms-of-service"
@@ -152,13 +149,13 @@ const Footer = () => {
                   rel="noopener noreferrer"
                   className="footerNewBottomLink"
                 >
-                  Договор оферты
+                  {t("footer.offer")}
                 </a>
               </div>
               <div className="footerNewBottomRight">
                 <p className="footerNewBottomLink">2025</p>
                 <a href="#" className="footerNewBottomLink">
-                  Разработка сайта <span>idarelab.az</span>
+                  {t("footer.developed")} <span>idarelab.az</span>
                 </a>
               </div>
             </div>

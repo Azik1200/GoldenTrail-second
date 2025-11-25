@@ -1,6 +1,31 @@
 import PriceRange from "../PriceRange/PriceRange";
+import useProductFilters from "../../hooks/useProductFilters";
 
 const FiltersBar = ({ isOpen, onClose }) => {
+  const filters = useProductFilters();
+
+  const colors = filters?.colors || [];
+  const sizes = filters?.sizes || [];
+  const brands = filters?.brands || [];
+  const catalogs = filters?.catalogs || [];
+  const minPrice = filters?.min_price ?? 0;
+  const maxPrice = filters?.max_price ?? 0;
+
+  const renderCategoryChildren = (children) => {
+    if (!Array.isArray(children) || children.length === 0) return null;
+
+    return (
+      <div className="filtersGroup filtersGroup--nested">
+        {children.map((child) => (
+          <label className="filterItem" key={`child-${child.id || child.slug}`}>
+            <input type="checkbox" className="filterCheckbox" />
+            <span>{child.name}</span>
+          </label>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div
       className={`filters filtersOverlay ${
@@ -29,36 +54,75 @@ const FiltersBar = ({ isOpen, onClose }) => {
           <div className="filersItem catalog">
             <h3 className="h3FiltersItemHeader">Раздел</h3>
             <div className="filtersGroup">
-              <label className="filterItem">
-                <input type="checkbox" className="filterCheckbox" />
-                <span>Котлы</span>
-              </label>
+              {catalogs.length === 0 && (
+                <p className="filterEmpty">Каталоги пока недоступны</p>
+              )}
 
-              <label className="filterItem">
-                <input type="checkbox" className="filterCheckbox" />
-                <span>Водонагреватели</span>
-              </label>
+              {catalogs.map((catalog) => (
+                <div className="filtersCatalog" key={`catalog-${catalog.id || catalog.slug}`}>
+                  <label className="filterItem">
+                    <input type="checkbox" className="filterCheckbox" />
+                    <span>{catalog.name}</span>
+                  </label>
 
-              <label className="filterItem">
-                <input type="checkbox" className="filterCheckbox" />
-                <span>Горелки</span>
-              </label>
+                  {Array.isArray(catalog.categories) && catalog.categories.length > 0 && (
+                    <div className="filtersGroup filtersGroup--nested">
+                      {catalog.categories.map((category) => (
+                        <div className="filtersCategory" key={`category-${category.id || category.slug}`}>
+                          <label className="filterItem">
+                            <input type="checkbox" className="filterCheckbox" />
+                            <span>{category.name}</span>
+                          </label>
 
-              <label className="filterItem">
-                <input type="checkbox" className="filterCheckbox" />
-                <span>Солнечные и тепловые системы</span>
-              </label>
-
-              <label className="filterItem">
-                <input type="checkbox" className="filterCheckbox" />
-                <span>Сплит-системы и мультисплит-системы</span>
-              </label>
+                          {renderCategoryChildren(category.children)}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
           <div className="filersItem">
             <h3 className="h3FiltersItemHeader">Цена</h3>
             <div className="filersPrice">
-              <PriceRange />
+              <PriceRange min={minPrice} max={maxPrice} />
+            </div>
+          </div>
+          <div className="filersItem">
+            <h3 className="h3FiltersItemHeader">Цвет</h3>
+            <div className="filtersGroup">
+              {colors.length === 0 && <p className="filterEmpty">Цвета пока недоступны</p>}
+              {colors.map((color) => (
+                <label className="filterItem" key={`color-${color}`}>
+                  <input type="checkbox" className="filterCheckbox" />
+                  <span>{color}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+          <div className="filersItem">
+            <h3 className="h3FiltersItemHeader">Размер</h3>
+            <div className="filtersGroup">
+              {sizes.length === 0 && <p className="filterEmpty">Размеры пока недоступны</p>}
+              {sizes.map((size) => (
+                <label className="filterItem" key={`size-${size}`}>
+                  <input type="checkbox" className="filterCheckbox" />
+                  <span>{size}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+          <div className="filersItem">
+            <h3 className="h3FiltersItemHeader">Бренд</h3>
+            <div className="filtersGroup">
+              {brands.length === 0 && <p className="filterEmpty">Бренды пока недоступны</p>}
+              {brands.map((brand) => (
+                <label className="filterItem" key={`brand-${brand}`}>
+                  <input type="checkbox" className="filterCheckbox" />
+                  <span>{brand}</span>
+                </label>
+              ))}
             </div>
           </div>
         </div>

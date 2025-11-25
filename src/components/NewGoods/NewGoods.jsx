@@ -1,9 +1,12 @@
 import GoodsItem from "../GoodsItem/GoodsItem";
 import "./NewGoods.scss";
 
-import products from "../../tools/Products";
+import useProducts from "../../hooks/useProducts";
 
 const NewGoods = () => {
+  const products = useProducts();
+  const newProducts = products.filter((p) => p.is_new);
+
   return (
     <>
       <div className="popularGoods">
@@ -14,7 +17,7 @@ const NewGoods = () => {
             <GoodsItem />
             <GoodsItem /> */}
 
-            {products.map((p) => (
+            {newProducts.map((p) => (
               <GoodsItem key={p.id} product={p} />
             ))}
           </div>
