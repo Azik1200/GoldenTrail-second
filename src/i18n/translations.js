@@ -119,19 +119,19 @@ const translations = {
         monthsLabel: "ay",
       },
       advantages: {
-        title: "Преимущества нашей продукции",
-        energyTitle: "Энергоэффективность",
+        title: "Məhsullarımızın üstünlükləri",
+        energyTitle: "Enerji səmərəliliyi",
         energyDesc:
-          "Современные технологии позволяют снизить энергопотребление до 30%, что делает нашу продукцию экономичной и экологичной.",
-        reliabilityTitle: "Надёжность и долговечность",
+          "Müasir texnologiyalar enerji sərfiyyatını 30%-dək azaldır və məhsullarımızı həm qənaətcil, həm də ekoloji cəhətdən təmiz edir.",
+        reliabilityTitle: "Etibarlılıq və dayanıqlıq",
         reliabilityDesc:
-          "Прочные материалы и строгий контроль качества гарантируют стабильную работу оборудования даже при интенсивной эксплуатации.",
-        smartTitle: "Умные технологии",
+          "Möhkəm materiallar və ciddi keyfiyyətə nəzarət avadanlığın hətta intensiv istismarda belə stabil işləməsini təmin edir.",
+        smartTitle: "Ağıllı texnologiyalar",
         smartDesc:
-          "Инновационные функции, такие как цифровое управление и автоматическая регулировка, обеспечивают удобство и полный контроль за системой.",
-        serviceTitle: "Сервис и поддержка",
+          "Rəqəmsal idarəetmə və avtomatik tənzimləmə kimi innovativ funksiyalar rahatlıq və sistemə tam nəzarət verir.",
+        serviceTitle: "Servis və dəstək",
         serviceDesc:
-          "Мы предоставляем официальную гарантию, профессиональную установку и быстрое сервисное обслуживание через нашу авторизованную сеть.",
+          "Rəsmi zəmanət, peşəkar quraşdırma və səlahiyyətli şəbəkəmiz vasitəsilə operativ servis xidməti təqdim edirik.",
       },
       testimonials: {
         title: "Отзывы клиентов",
@@ -416,19 +416,19 @@ const translations = {
         monthsLabel: "months",
       },
       advantages: {
-        title: "Преимущества нашей продукции",
-        energyTitle: "Энергоэффективность",
+        title: "Advantages of our products",
+        energyTitle: "Energy efficiency",
         energyDesc:
-          "Современные технологии позволяют снизить энергопотребление до 30%, что делает нашу продукцию экономичной и экологичной.",
-        reliabilityTitle: "Надёжность и долговечность",
+          "Modern technologies reduce energy consumption by up to 30%, making our products both economical and eco-friendly.",
+        reliabilityTitle: "Reliability and durability",
         reliabilityDesc:
-          "Прочные материалы и строгий контроль качества гарантируют стабильную работу оборудования даже при интенсивной эксплуатации.",
-        smartTitle: "Умные технологии",
+          "Robust materials and strict quality control ensure stable operation even under intensive use.",
+        smartTitle: "Smart technologies",
         smartDesc:
-          "Инновационные функции, такие как цифровое управление и автоматическая регулировка, обеспечивают удобство и полный контроль за системой.",
-        serviceTitle: "Сервис и поддержка",
+          "Innovative features like digital controls and automatic regulation deliver convenience and full control over the system.",
+        serviceTitle: "Service and support",
         serviceDesc:
-          "Мы предоставляем официальную гарантию, профессиональную установку и быстрое сервисное обслуживание через нашу авторизованную сеть.",
+          "We provide an official warranty, professional installation, and fast service through our authorized network.",
       },
       testimonials: {
         title: "Отзывы клиентов",
