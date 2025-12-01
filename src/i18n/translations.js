@@ -110,13 +110,13 @@ const translations = {
       popular: {
         title: "Populyar məhsullar",
       },
-      newItems: "Новинки",
+      newItems: "Yeniliklər",
       warranty: {
-        title: "Гарантия",
+        title: "Zəmanət",
         description:
-          "Мы уверены в надёжности и качестве нашей продукции, поэтому предоставляем 2 года официальной гарантии. В течение гарантийного срока вы получаете бесплатное сервисное обслуживание и ремонт в случае выявления заводских дефектов. Наша сервисная сеть всегда готова помочь вам, чтобы ваша техника работала бесперебойно и дарила комфорт каждый день.",
+          "Məhsullarımızın etibarlılığına və keyfiyyətinə əminik, buna görə 2 il rəsmi zəmanət veririk. Zəmanət müddətində zavod qüsurları aşkarlandıqda pulsuz servis xidməti və təmir alırsınız. Servis şəbəkəmiz hər zaman texnikanızın fasiləsiz işləməsi və hər gün komfort bəxş etməsi üçün yardım göstərməyə hazırdır.",
         monthsValue: "24",
-        monthsLabel: "месяца",
+        monthsLabel: "ay",
       },
       advantages: {
         title: "Преимущества нашей продукции",
@@ -407,13 +407,13 @@ const translations = {
       popular: {
         title: "Popular products",
       },
-      newItems: "Новинки",
+      newItems: "New arrivals",
       warranty: {
-        title: "Гарантия",
+        title: "Warranty",
         description:
-          "Мы уверены в надёжности и качестве нашей продукции, поэтому предоставляем 2 года официальной гарантии. В течение гарантийного срока вы получаете бесплатное сервисное обслуживание и ремонт в случае выявления заводских дефектов. Наша сервисная сеть всегда готова помочь вам, чтобы ваша техника работала бесперебойно и дарила комфорт каждый день.",
+          "We are confident in the reliability and quality of our products, so we provide an official 2-year warranty. During the warranty period you receive free service and repairs if any manufacturing defects are found. Our service network is always ready to help so your equipment runs smoothly and keeps you comfortable every day.",
         monthsValue: "24",
-        monthsLabel: "месяца",
+        monthsLabel: "months",
       },
       advantages: {
         title: "Преимущества нашей продукции",
