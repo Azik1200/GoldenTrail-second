@@ -6,6 +6,19 @@ const PRODUCT_IMAGE_BASE_URL =
 
 const startsWithProtocol = (value) => /^https?:\/\//i.test(value);
 
+const stripBasePath = (path, base) => {
+  const normalizedPath = path.replace(/^\/+/, "");
+
+  const basePathMatch = base.match(/^https?:\/\/[^/]+\/(.+)$/i);
+  const basePath = basePathMatch ? basePathMatch[1].replace(/^\/+/, "") : "";
+
+  if (basePath && normalizedPath.toLowerCase().startsWith(basePath.toLowerCase())) {
+    return normalizedPath.slice(basePath.length).replace(/^\/+/, "");
+  }
+
+  return normalizedPath;
+};
+
 export const formatProductImageUrl = (path) => {
   if (!path) return "";
 
@@ -14,7 +27,7 @@ export const formatProductImageUrl = (path) => {
   }
 
   const normalizedBase = PRODUCT_IMAGE_BASE_URL.replace(/\/$/, "");
-  const normalizedPath = path.replace(/^\//, "");
+  const normalizedPath = stripBasePath(path, normalizedBase);
 
   return `${normalizedBase}/${normalizedPath}`;
 };
