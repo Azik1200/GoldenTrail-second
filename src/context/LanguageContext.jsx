@@ -50,6 +50,11 @@ export const LanguageProvider = ({ children }) => {
   const setLanguage = useCallback((nextLang) => {
     if (!["az", "ru", "en"].includes(nextLang)) return;
     setLanguageState(nextLang);
+
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("language", nextLang);
+      window.location.reload();
+    }
   }, []);
 
   const t = useCallback(
