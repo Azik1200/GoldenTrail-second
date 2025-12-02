@@ -42,7 +42,8 @@ const GoodsItem = ({ product }) => {
   const { actualPrice, oldPrice } = computePrices(product);
   const displayTag = product.goodsTag || (product.is_new ? "New" : "");
   const displayName = product.name || product.title || product.sku || "";
-  const displayDesc = product.desc || product.sku || "";
+  const displayDesc =
+    product.short_description || product.desc || product.description || "";
   const displayImage = formatProductImageUrl(
     product.image ||
       product.img ||
