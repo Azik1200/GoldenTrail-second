@@ -6,12 +6,14 @@ import { Pagination } from "swiper/modules";
 
 import useSlides from "../../hooks/useSlides";
 import { formatSlideImageUrl } from "../../api/slides";
+import useLanguage from "../../hooks/useLanguage";
 
 import "./SwiperMain.scss";
 import styles from "./SwiperMain.module.scss";
 
 export default function SwiperMain() {
   const slides = useSlides();
+  const { t } = useLanguage();
 
   if (!slides.length) {
     return null;
@@ -48,7 +50,7 @@ export default function SwiperMain() {
                       <div className="swiperInfoDesc">{slide.medium_text}</div>
                     )}
                     <a href="#" className="swiperInfoLink mainBtn">
-                      Заказать сейчас
+                      {t("home.slider.orderNow")}
                     </a>
                   </div>
                 </div>

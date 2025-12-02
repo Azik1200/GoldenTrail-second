@@ -4,6 +4,8 @@ import "./GoodsItem.scss";
 import { Link } from "react-router-dom";
 import { addOrUpdateCartItem } from "../../api/cart";
 import { addFavorite } from "../../api/favorites";
+import useLanguage from "../../hooks/useLanguage";
+import { formatProductImageUrl } from "../../api/products";
 
 const formatPrice = (value) =>
   typeof value === "number" ? `${value.toFixed(2)} AZN` : value || "";
@@ -30,6 +32,7 @@ const GoodsItem = ({ product }) => {
   const [qty, setQty] = useState(0);
   const [isUpdating, setIsUpdating] = useState(false);
   const [isFavoriting, setIsFavoriting] = useState(false);
+  const { t } = useLanguage();
 
   if (!product) {
     console.warn("GoodsItem: проп 'product' не передан");
@@ -40,7 +43,13 @@ const GoodsItem = ({ product }) => {
   const displayTag = product.goodsTag || (product.is_new ? "New" : "");
   const displayName = product.name || product.title || product.sku || "";
   const displayDesc = product.desc || product.sku || "";
-  const displayImage = product.img || product.image || "";
+  const displayImage = formatProductImageUrl(
+    product.image ||
+      product.img ||
+      product.images?.[0]?.url ||
+      product.images?.[0]?.image ||
+      product.images?.[0]?.path
+  );
   const id = product.id;
 
   const updateQuantity = async (nextQty) => {
@@ -131,11 +140,13 @@ const GoodsItem = ({ product }) => {
             onClick={handleAdd}
             disabled={isUpdating}
           >
-            Добавить в корзину
+            {t("goods.addToCart")}
           </button>
         ) : (
           <div className="goodsItemCounter">
-            <div className="goodsItemCounterText mainBtn">В корзине</div>
+            <div className="goodsItemCounterText mainBtn">
+              {t("goods.inCart")}
+            </div>
             <div
               className="goodsItemCounterWrapper"
               role="group"

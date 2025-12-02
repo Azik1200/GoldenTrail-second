@@ -84,6 +84,10 @@ const translations = {
       empty: "Kateqoriyalar mövcud deyil",
       cta: "Kataloqa keç",
     },
+    goods: {
+      addToCart: "Səbətə əlavə et",
+      inCart: "Səbətdə",
+    },
     navigation: {
       heating: "İsitmə",
       renewables: "Bərpa olunan enerji",
@@ -100,39 +104,45 @@ const translations = {
       sampleGlasses: "Rentgen qoruyucu eynəklər",
     },
     home: {
-      newItems: "Новинки",
+      slider: {
+        orderNow: "İndi sifariş et",
+      },
+      popular: {
+        title: "Populyar məhsullar",
+      },
+      newItems: "Yeniliklər",
       warranty: {
-        title: "Гарантия",
+        title: "Zəmanət",
         description:
-          "Мы уверены в надёжности и качестве нашей продукции, поэтому предоставляем 2 года официальной гарантии. В течение гарантийного срока вы получаете бесплатное сервисное обслуживание и ремонт в случае выявления заводских дефектов. Наша сервисная сеть всегда готова помочь вам, чтобы ваша техника работала бесперебойно и дарила комфорт каждый день.",
+          "Məhsullarımızın etibarlılığına və keyfiyyətinə əminik, buna görə 2 il rəsmi zəmanət veririk. Zəmanət müddətində zavod qüsurları aşkarlandıqda pulsuz servis xidməti və təmir alırsınız. Servis şəbəkəmiz hər zaman texnikanızın fasiləsiz işləməsi və hər gün komfort bəxş etməsi üçün yardım göstərməyə hazırdır.",
         monthsValue: "24",
-        monthsLabel: "месяца",
+        monthsLabel: "ay",
       },
       advantages: {
-        title: "Преимущества нашей продукции",
-        energyTitle: "Энергоэффективность",
+        title: "Məhsullarımızın üstünlükləri",
+        energyTitle: "Enerji səmərəliliyi",
         energyDesc:
-          "Современные технологии позволяют снизить энергопотребление до 30%, что делает нашу продукцию экономичной и экологичной.",
-        reliabilityTitle: "Надёжность и долговечность",
+          "Müasir texnologiyalar enerji sərfiyyatını 30%-dək azaldır və məhsullarımızı həm qənaətcil, həm də ekoloji cəhətdən təmiz edir.",
+        reliabilityTitle: "Etibarlılıq və dayanıqlıq",
         reliabilityDesc:
-          "Прочные материалы и строгий контроль качества гарантируют стабильную работу оборудования даже при интенсивной эксплуатации.",
-        smartTitle: "Умные технологии",
+          "Möhkəm materiallar və ciddi keyfiyyətə nəzarət avadanlığın hətta intensiv istismarda belə stabil işləməsini təmin edir.",
+        smartTitle: "Ağıllı texnologiyalar",
         smartDesc:
-          "Инновационные функции, такие как цифровое управление и автоматическая регулировка, обеспечивают удобство и полный контроль за системой.",
-        serviceTitle: "Сервис и поддержка",
+          "Rəqəmsal idarəetmə və avtomatik tənzimləmə kimi innovativ funksiyalar rahatlıq və sistemə tam nəzarət verir.",
+        serviceTitle: "Servis və dəstək",
         serviceDesc:
-          "Мы предоставляем официальную гарантию, профессиональную установку и быстрое сервисное обслуживание через нашу авторизованную сеть.",
+          "Rəsmi zəmanət, peşəkar quraşdırma və səlahiyyətli şəbəkəmiz vasitəsilə operativ servis xidməti təqdim edirik.",
       },
       testimonials: {
-        title: "Отзывы клиентов",
-        empty: "Пока нет отзывов.",
+        title: "Müştəri rəyləri",
+        empty: "Hələ rəy yoxdur.",
       },
       about: {
-        title: "О нас",
+        title: "Haqqımızda",
         defaultParagraphs: [
-          "Мы являемся официальным дистрибьютором продукции Ferroli в Азербайджане — итальянского производителя с более чем 65-летним опытом в сфере отопления, водонагрева и климатических решений.",
-          "Наша миссия — предлагать клиентам современное, энергоэффективное и надёжное оборудование, которое соответствует европейским стандартам качества и дарит комфорт в каждый дом.",
-          "Ferroli — это инновации, долговечность и стиль, а мы — ваш надёжный партнёр на пути к комфорту и теплу.",
+          "Biz Azərbaycanda Ferroli məhsullarının rəsmi distribütoruyuq — 65 ildən artıq təcrübəsi olan italyan istilik, suqızdırma və iqlim həlləri istehsalçısıdır.",
+          "Missiyamız müştərilərə Avropa standartlarına cavab verən müasir, enerji səmərəli və etibarlı avadanlıq təqdim etməkdir ki, hər evə rahatlıq bəxş etsin.",
+          "Ferroli innovasiya, davamlılıq və üslub deməkdir, biz isə rahatlıq və istiliyə aparan yolda sizin etibarlı tərəfdaşınızıq.",
         ],
       },
     },
@@ -222,6 +232,10 @@ const translations = {
       empty: "Категории недоступны",
       cta: "Перейти в каталог",
     },
+    goods: {
+      addToCart: "Добавить в корзину",
+      inCart: "В корзине",
+    },
     navigation: {
       heating: "Отопление",
       renewables: "Возобновляемые источники энергии",
@@ -238,6 +252,12 @@ const translations = {
       sampleGlasses: "Очки рентгенозащитные",
     },
     home: {
+      slider: {
+        orderNow: "Заказать сейчас",
+      },
+      popular: {
+        title: "Популярные товары",
+      },
       newItems: "Новинки",
       warranty: {
         title: "Гарантия",
@@ -361,6 +381,10 @@ const translations = {
       empty: "Categories are unavailable",
       cta: "Go to catalog",
     },
+    goods: {
+      addToCart: "Add to cart",
+      inCart: "In cart",
+    },
     navigation: {
       heating: "Heating",
       renewables: "Renewable energy",
@@ -377,39 +401,45 @@ const translations = {
       sampleGlasses: "X-ray protective glasses",
     },
     home: {
-      newItems: "Новинки",
+      slider: {
+        orderNow: "Order now",
+      },
+      popular: {
+        title: "Popular products",
+      },
+      newItems: "New arrivals",
       warranty: {
-        title: "Гарантия",
+        title: "Warranty",
         description:
-          "Мы уверены в надёжности и качестве нашей продукции, поэтому предоставляем 2 года официальной гарантии. В течение гарантийного срока вы получаете бесплатное сервисное обслуживание и ремонт в случае выявления заводских дефектов. Наша сервисная сеть всегда готова помочь вам, чтобы ваша техника работала бесперебойно и дарила комфорт каждый день.",
+          "We are confident in the reliability and quality of our products, so we provide an official 2-year warranty. During the warranty period you receive free service and repairs if any manufacturing defects are found. Our service network is always ready to help so your equipment runs smoothly and keeps you comfortable every day.",
         monthsValue: "24",
-        monthsLabel: "месяца",
+        monthsLabel: "months",
       },
       advantages: {
-        title: "Преимущества нашей продукции",
-        energyTitle: "Энергоэффективность",
+        title: "Advantages of our products",
+        energyTitle: "Energy efficiency",
         energyDesc:
-          "Современные технологии позволяют снизить энергопотребление до 30%, что делает нашу продукцию экономичной и экологичной.",
-        reliabilityTitle: "Надёжность и долговечность",
+          "Modern technologies reduce energy consumption by up to 30%, making our products both economical and eco-friendly.",
+        reliabilityTitle: "Reliability and durability",
         reliabilityDesc:
-          "Прочные материалы и строгий контроль качества гарантируют стабильную работу оборудования даже при интенсивной эксплуатации.",
-        smartTitle: "Умные технологии",
+          "Robust materials and strict quality control ensure stable operation even under intensive use.",
+        smartTitle: "Smart technologies",
         smartDesc:
-          "Инновационные функции, такие как цифровое управление и автоматическая регулировка, обеспечивают удобство и полный контроль за системой.",
-        serviceTitle: "Сервис и поддержка",
+          "Innovative features like digital controls and automatic regulation deliver convenience and full control over the system.",
+        serviceTitle: "Service and support",
         serviceDesc:
-          "Мы предоставляем официальную гарантию, профессиональную установку и быстрое сервисное обслуживание через нашу авторизованную сеть.",
+          "We provide an official warranty, professional installation, and fast service through our authorized network.",
       },
       testimonials: {
-        title: "Отзывы клиентов",
-        empty: "Пока нет отзывов.",
+        title: "Customer reviews",
+        empty: "No reviews yet.",
       },
       about: {
-        title: "О нас",
+        title: "About us",
         defaultParagraphs: [
-          "Мы являемся официальным дистрибьютором продукции Ferroli в Азербайджане — итальянского производителя с более чем 65-летним опытом в сфере отопления, водонагрева и климатических решений.",
-          "Наша миссия — предлагать клиентам современное, энергоэффективное и надёжное оборудование, которое соответствует европейским стандартам качества и дарит комфорт в каждый дом.",
-          "Ferroli — это инновации, долговечность и стиль, а мы — ваш надёжный партнёр на пути к комфорту и теплу.",
+          "We are the official distributor of Ferroli products in Azerbaijan—an Italian manufacturer with over 65 years of experience in heating, water heating, and climate solutions.",
+          "Our mission is to offer customers modern, energy-efficient, and reliable equipment that meets European quality standards and brings comfort to every home.",
+          "Ferroli stands for innovation, durability, and style, and we are your reliable partner on the path to comfort and warmth.",
         ],
       },
     },

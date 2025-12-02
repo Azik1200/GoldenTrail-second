@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import logo from "./../../assets/img/Logo.svg";
 import searchResult1 from "./../../assets/img/searchResult1.png";
 import searchResult2 from "./../../assets/img/searchResult2.png";
@@ -6,12 +6,52 @@ import "./Header.scss";
 import { NavLink } from "react-router-dom";
 import useLanguage from "../../hooks/useLanguage";
 import useLoading from "../../hooks/useLoading";
+import useCategories from "../../hooks/useCategories";
 
 const Header = () => {
-  const [activeTab, setActiveTab] = useState("chapter-1");
+  const [activeTab, setActiveTab] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
   const { language, setLanguage, t } = useLanguage();
   const { triggerManualLoading } = useLoading();
+  const categories = useCategories();
+
+  const fallbackCategories = useMemo(
+    () => [
+      {
+        id: "chapter-1",
+        name: t("navigation.heating"),
+        children: [
+          { id: "category-1", name: t("navigation.boilers") },
+          { id: "category-2", name: t("navigation.waterHeaters") },
+          { id: "category-3", name: t("navigation.burners") },
+        ],
+      },
+      {
+        id: "chapter-2",
+        name: t("navigation.renewables"),
+        children: [{ id: "category-4", name: t("navigation.solar") }],
+      },
+      {
+        id: "chapter-3",
+        name: t("navigation.climate"),
+        children: [{ id: "category-5", name: t("navigation.splits") }],
+      },
+    ],
+    [t]
+  );
+
+  const chapters = categories.length ? categories : fallbackCategories;
+
+  useEffect(() => {
+    if (!chapters.length) return;
+
+    setActiveTab((prev) => {
+      if (prev && chapters.some((chapter) => chapter.id === prev)) return prev;
+      return chapters[0].id;
+    });
+  }, [chapters]);
+
+  const activeChapter = chapters.find((chapter) => chapter.id === activeTab);
 
   useEffect(() => {
     const body = document.body;
@@ -219,63 +259,37 @@ const Header = () => {
           <div className="container">
             <div className="headerDropdownDesktop_wrapper">
               <div className="headerDropdownDesktop_chapter">
-                <div
-                  className={`headerDropdownDesktop_chapter_item ${
-                    activeTab === "chapter-1" ? "active" : ""
-                  }`}
-                  id="chapter-1"
-                  onClick={() => setActiveTab("chapter-1")}
-                >
-                  {t("navigation.heating")}
-                </div>
-                <div
-                  className={`headerDropdownDesktop_chapter_item ${
-                    activeTab === "chapter-2" ? "active" : ""
-                  }`}
-                  id="chapter-2"
-                  onClick={() => setActiveTab("chapter-2")}
-                >
-                  {t("navigation.renewables")}
-                </div>
-                <div
-                  className={`headerDropdownDesktop_chapter_item ${
-                    activeTab === "chapter-3" ? "active" : ""
-                  }`}
-                  id="chapter-2"
-                  onClick={() => setActiveTab("chapter-3")}
-                >
-                  {t("navigation.climate")}
-                </div>
+                {chapters.map((chapter) => (
+                  <div
+                    key={chapter.id}
+                    className={`headerDropdownDesktop_chapter_item ${
+                      activeTab === chapter.id ? "active" : ""
+                    }`}
+                    id={chapter.id}
+                    onClick={() => setActiveTab(chapter.id)}
+                  >
+                    {chapter.name}
+                  </div>
+                ))}
               </div>
 
               <div className="headerDropdownDesktop_categories">
-                {activeTab === "chapter-1" && (
+                {activeChapter?.children?.length ? (
                   <ul className="headerDropdownDesktop_categories_list">
-                    <li className="headerDropdownDesktop_categories_item">
-                      <a href="#">{t("navigation.boilers")}</a>
-                    </li>
-                    <li className="headerDropdownDesktop_categories_item">
-                      <a href="#">{t("navigation.waterHeaters")}</a>
-                    </li>
-                    <li className="headerDropdownDesktop_categories_item">
-                      <a href="#">{t("navigation.burners")}</a>
-                    </li>
+                    {activeChapter.children.map((catalog) => (
+                      <li
+                        key={catalog.id || catalog.slug || catalog.name}
+                        className="headerDropdownDesktop_categories_item"
+                      >
+                        <NavLink
+                          to={`/catalog?catalog=${catalog.slug || catalog.id || ""}`}
+                        >
+                          {catalog.name}
+                        </NavLink>
+                      </li>
+                    ))}
                   </ul>
-                )}
-                {activeTab === "chapter-2" && (
-                  <ul className="headerDropdownDesktop_categories_list">
-                    <li className="headerDropdownDesktop_categories_item">
-                      <a href="#">{t("navigation.solar")}</a>
-                    </li>
-                  </ul>
-                )}
-                {activeTab === "chapter-3" && (
-                  <ul className="headerDropdownDesktop_categories_list">
-                    <li className="headerDropdownDesktop_categories_item">
-                      <a href="#">{t("navigation.splits")}</a>
-                    </li>
-                  </ul>
-                )}
+                ) : null}
               </div>
             </div>
           </div>

@@ -6,6 +6,25 @@ const PRODUCT_IMAGE_BASE_URL =
 
 const startsWithProtocol = (value) => /^https?:\/\//i.test(value);
 
+const stripBasePath = (path, base) => {
+  const normalizedPath = path.replace(/^\/+/, "");
+
+  const basePathMatch = base.match(/^https?:\/\/[^/]+\/(.+)$/i);
+  const basePath = basePathMatch ? basePathMatch[1].replace(/^\/+/, "") : "";
+
+  if (basePath && normalizedPath.toLowerCase().startsWith(basePath.toLowerCase())) {
+    return normalizedPath.slice(basePath.length).replace(/^\/+/, "");
+  }
+
+  const baseTail = basePath.split("/").filter(Boolean).pop();
+
+  if (baseTail && normalizedPath.toLowerCase().startsWith(`${baseTail.toLowerCase()}/`)) {
+    return normalizedPath.slice(baseTail.length + 1).replace(/^\/+/, "");
+  }
+
+  return normalizedPath;
+};
+
 export const formatProductImageUrl = (path) => {
   if (!path) return "";
 
@@ -14,7 +33,7 @@ export const formatProductImageUrl = (path) => {
   }
 
   const normalizedBase = PRODUCT_IMAGE_BASE_URL.replace(/\/$/, "");
-  const normalizedPath = path.replace(/^\//, "");
+  const normalizedPath = stripBasePath(path, normalizedBase);
 
   return `${normalizedBase}/${normalizedPath}`;
 };
@@ -49,10 +68,15 @@ export const fetchProducts = async (filters = {}) => {
 
   if (!Array.isArray(data)) return [];
 
-  return data.map((product) => ({
-    ...product,
-    image: formatProductImageUrl(product.image),
-  }));
+  return data.map((product) => {
+    const formattedImage = formatProductImageUrl(product.image || product.img);
+
+    return {
+      ...product,
+      image: formattedImage,
+      img: formattedImage,
+    };
+  });
 };
 
 export const fetchProductFilters = async () => {
@@ -115,9 +139,12 @@ export const fetchProduct = async (id) => {
     formatProductImageUrl(img.url || img.image || img.path || img)
   );
 
+  const formattedImage = formatProductImageUrl(data.image || data.img);
+
   return {
     ...data,
-    image: formatProductImageUrl(data.image),
+    image: formattedImage,
+    img: formattedImage,
     images: formattedImages,
   };
 };
